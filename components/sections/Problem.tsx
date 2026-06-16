@@ -42,13 +42,14 @@ export function Problem() {
             <Reveal key={p.title} delay={i * 0.12} className="h-full">
               <BorderGlow
                 className="h-full"
-                backgroundColor="#0B1437"
+                backgroundColor="#070B16"
                 borderRadius={24}
                 glowColor="16 100% 66%"
-                glowRadius={34}
-                edgeSensitivity={28}
+                glowIntensity={1.35}
+                glowRadius={38}
+                edgeSensitivity={26}
                 coneSpread={22}
-                colors={["#3D7EFF", "#FF7849", "#FFC56E"]}
+                colors={["#4D8BFF", "#FF7849", "#FFC56E"]}
               >
                 <div className="flex h-full flex-col p-7">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/15 text-coral">

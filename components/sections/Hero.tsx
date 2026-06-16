@@ -51,16 +51,6 @@ export function Hero() {
       />
       <div className="sunrise-glow pointer-events-none absolute -top-20 right-0 h-[600px] w-[600px]" />
 
-      {/* Lente de vidrio (FluidGlass) — capa decorativa detrás del contenido,
-          sin capturar el puntero para no interferir con los botones. */}
-      {showLens && (
-        <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
-          <FluidGlass
-            lensProps={{ scale: 0.22, ior: 1.15, thickness: 5, chromaticAberration: 0.1, anisotropy: 0.01 }}
-          />
-        </div>
-      )}
-
       <div className="container-px relative z-10 grid items-center gap-12 pb-20 pt-32 sm:pt-36 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-40">
         <div>
           <motion.span
@@ -74,19 +64,52 @@ export function Hero() {
             Automatización con IA para PyMEs
           </motion.span>
 
-          <motion.h1
-            custom={1}
-            variants={fade}
-            initial="hidden"
-            animate="show"
-            className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
-          >
-            Deja de perder clientes por{" "}
-            <span className="relative whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-sky-soft via-amber to-coral">
-              no responder a tiempo
-            </span>
-            .
-          </motion.h1>
+          {showLens ? (
+            <>
+              {/* Titular real para SEO y lectores de pantalla (no visible) */}
+              <h1 className="sr-only">
+                Deja de perder clientes por no responder a tiempo.
+              </h1>
+              {/* Titular WebGL que la lente de vidrio refracta (solo desktop) */}
+              <motion.div
+                custom={1}
+                variants={fade}
+                initial="hidden"
+                animate="show"
+                aria-hidden="true"
+                className="mt-5 h-[220px] w-full lg:h-[260px]"
+              >
+                <FluidGlass
+                  lines={[
+                    { text: "Deja de perder", color: "#FFFFFF" },
+                    { text: "clientes por no", color: "#FFFFFF" },
+                    { text: "responder a tiempo.", color: "#FF7849" },
+                  ]}
+                  lensProps={{
+                    scale: 0.3,
+                    ior: 1.25,
+                    thickness: 8,
+                    chromaticAberration: 0.2,
+                    anisotropy: 0.02,
+                  }}
+                />
+              </motion.div>
+            </>
+          ) : (
+            <motion.h1
+              custom={1}
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+            >
+              Deja de perder clientes por{" "}
+              <span className="relative whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-sky-soft via-amber to-coral">
+                no responder a tiempo
+              </span>
+              .
+            </motion.h1>
+          )}
 
           <motion.p
             custom={2}

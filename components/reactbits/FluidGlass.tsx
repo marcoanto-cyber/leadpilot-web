@@ -2,21 +2,22 @@
 "use client";
 
 // FluidGlass de React Bits (https://www.reactbits.dev), modo "lens".
-// Adaptación para Lead Pilot:
-//  - Solo la lente (sin ScrollControls, imágenes demo ni tipografía "React Bits").
-//  - Fondo transparente (sin el fondo morado original) para integrarse al hero navy.
-//  - La lente sigue el cursor vía listener global y refracta un degradado de marca.
-//  - El <Canvas> es pointer-events:none, así que NUNCA bloquea los botones.
+// Adaptación Lead Pilot: la lente refracta el TITULAR del hero, que se
+// renderiza dentro del canvas (drei <Text>) y se muestra sobre un plano.
+//  - Sin ScrollControls / imágenes demo / fondo morado: canvas transparente.
+//  - La lente sigue el cursor (relativo al canvas) y deforma el texto debajo.
+//  - pointer-events:none → nunca bloquea los botones del hero.
+//  - El SEO/accesibilidad se conserva con un <h1> sr-only en el HTML (ver Hero).
 
 import * as THREE from "three";
 import { useRef, useState, useEffect, useMemo } from "react";
 import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber";
-import { useFBO, useGLTF, MeshTransmissionMaterial, Preload } from "@react-three/drei";
+import { useFBO, MeshTransmissionMaterial, Text, Preload } from "@react-three/drei";
 import { easing } from "maath";
 
-useGLTF.preload("/assets/3d/lens.glb");
+const FONT_URL = "/fonts/SpaceGrotesk.ttf";
 
-type Pointer = { x: number; y: number };
+export type GlassLine = { text: string; color?: string };
 
 type LensProps = {
   scale?: number;
@@ -26,62 +27,83 @@ type LensProps = {
   chromaticAberration?: number;
 };
 
-/** Textura de degradado "amanecer" (azul instrumento → coral → ámbar) para refractar. */
-function useBrandGradientTexture() {
-  return useMemo(() => {
-    if (typeof document === "undefined") return null;
-    const size = 512;
-    const canvas = document.createElement("canvas");
-    canvas.width = canvas.height = size;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return null;
+type Pointer = { x: number; y: number };
 
-    ctx.fillStyle = "#0B1437";
-    ctx.fillRect(0, 0, size, size);
-
-    const blobs: [number, number, number, string][] = [
-      [size * 0.3, size * 0.35, size * 0.5, "#3D7EFF"],
-      [size * 0.72, size * 0.4, size * 0.45, "#FF7849"],
-      [size * 0.55, size * 0.75, size * 0.5, "#FFC56E"],
-      [size * 0.2, size * 0.8, size * 0.4, "#6FA0FF"],
-    ];
-    for (const [x, y, r, color] of blobs) {
-      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, color);
-      g.addColorStop(1, "rgba(11,20,55,0)");
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, size, size);
-    }
-
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    return tex;
+function useDevice() {
+  const get = () => {
+    if (typeof window === "undefined") return "desktop" as const;
+    const w = window.innerWidth;
+    return w <= 639 ? ("mobile" as const) : w <= 1023 ? ("tablet" as const) : ("desktop" as const);
+  };
+  const [device, setDevice] = useState(get);
+  useEffect(() => {
+    const onResize = () => setDevice(get());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
+  return device;
+}
+
+function Headline({ lines, fontSize }: { lines: GlassLine[]; fontSize: number }) {
+  const lineHeight = fontSize * 1.16;
+  const start = ((lines.length - 1) / 2) * lineHeight;
+  return (
+    <group position={[0, 0, 12]}>
+      {lines.map((line, i) => (
+        <Text
+          key={i}
+          font={FONT_URL}
+          fontSize={fontSize}
+          position={[0, start - i * lineHeight, 0]}
+          color={line.color ?? "#ffffff"}
+          anchorX="center"
+          anchorY="middle"
+          letterSpacing={-0.04}
+          textAlign="center"
+          outlineWidth={0}
+        >
+          {line.text}
+        </Text>
+      ))}
+    </group>
+  );
 }
 
 function Lens({
-  pointerRef,
+  lines,
+  fontSize,
   lensProps,
 }: {
-  pointerRef: React.MutableRefObject<Pointer>;
+  lines: GlassLine[];
+  fontSize: number;
   lensProps: LensProps;
 }) {
   const ref = useRef<THREE.Mesh>(null);
-  const { nodes } = useGLTF("/assets/3d/lens.glb") as unknown as {
-    nodes: Record<string, THREE.Mesh>;
-  };
   const buffer = useFBO();
   const [scene] = useState(() => new THREE.Scene());
-  const gradient = useBrandGradientTexture();
+  const { viewport: vp, gl } = useThree();
+  const pointerRef = useRef<Pointer>({ x: 0, y: 0 });
 
-  const geometry = nodes.Cylinder?.geometry;
+  // La lente sigue el cursor relativo al canvas (no a la ventana completa).
+  useEffect(() => {
+    const dom = gl.domElement;
+    const onMove = (e: PointerEvent) => {
+      const r = dom.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 2 - 1;
+      const y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      pointerRef.current.x = Math.max(-1.2, Math.min(1.2, x));
+      pointerRef.current.y = Math.max(-1.2, Math.min(1.2, y));
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [gl]);
 
   const {
-    scale = 0.22,
-    ior = 1.15,
-    thickness = 5,
-    anisotropy = 0.01,
-    chromaticAberration = 0.1,
+    scale = 0.3,
+    ior = 1.25,
+    thickness = 8,
+    anisotropy = 0.02,
+    chromaticAberration = 0.2,
   } = lensProps;
 
   useFrame((state, delta) => {
@@ -90,61 +112,59 @@ function Lens({
     const v = viewport.getCurrentViewport(camera, [0, 0, 15]);
 
     const p = pointerRef.current;
-    const destX = (p.x * v.width) / 2;
-    const destY = (p.y * v.height) / 2;
-    easing.damp3(ref.current.position, [destX, destY, 15], 0.15, delta);
+    easing.damp3(
+      ref.current.position,
+      [(p.x * v.width) / 2, (p.y * v.height) / 2, 15],
+      0.15,
+      delta
+    );
 
-    // Renderiza el degradado de marca al buffer que la lente va a refractar.
+    // Render del titular a un buffer transparente que la lente refracta.
     gl.setRenderTarget(buffer);
+    gl.setClearColor(0x000000, 0);
+    gl.clear();
     gl.render(scene, camera);
     gl.setRenderTarget(null);
   });
 
   return (
     <>
-      {createPortal(
-        <mesh scale={[18, 18, 1]} position={[0, 0, 0]}>
-          <planeGeometry />
-          {gradient ? (
-            <meshBasicMaterial map={gradient} toneMapped={false} />
-          ) : (
-            <meshBasicMaterial color="#1a2a6b" />
-          )}
-        </mesh>,
-        scene
-      )}
+      {createPortal(<Headline lines={lines} fontSize={fontSize} />, scene)}
 
-      {geometry && (
-        <mesh
-          ref={ref}
-          scale={scale}
-          rotation-x={Math.PI / 2}
-          geometry={geometry}
-        >
-          <MeshTransmissionMaterial
-            buffer={buffer.texture}
-            ior={ior}
-            thickness={thickness}
-            anisotropy={anisotropy}
-            chromaticAberration={chromaticAberration}
-          />
-        </mesh>
-      )}
+      {/* Plano que muestra el titular (visible normal) */}
+      <mesh scale={[vp.width, vp.height, 1]}>
+        <planeGeometry />
+        <meshBasicMaterial map={buffer.texture} transparent toneMapped={false} />
+      </mesh>
+
+      {/* Lente de vidrio que refracta el mismo titular */}
+      <mesh ref={ref} scale={scale} rotation-x={Math.PI / 2}>
+        <cylinderGeometry args={[1, 1, 0.18, 64]} />
+        <MeshTransmissionMaterial
+          buffer={buffer.texture}
+          ior={ior}
+          thickness={thickness}
+          anisotropy={anisotropy}
+          chromaticAberration={chromaticAberration}
+          roughness={0}
+          distortion={0.4}
+          distortionScale={0.5}
+          temporalDistortion={0.1}
+        />
+      </mesh>
     </>
   );
 }
 
-export default function FluidGlass({ lensProps = {} }: { lensProps?: LensProps }) {
-  const pointerRef = useRef<Pointer>({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const onMove = (e: PointerEvent) => {
-      pointerRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointerRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
-  }, []);
+export default function FluidGlass({
+  lines,
+  lensProps = {},
+}: {
+  lines: GlassLine[];
+  lensProps?: LensProps;
+}) {
+  const device = useDevice();
+  const fontSize = device === "mobile" ? 0.26 : device === "tablet" ? 0.3 : 0.34;
 
   return (
     <Canvas
@@ -154,7 +174,7 @@ export default function FluidGlass({ lensProps = {} }: { lensProps?: LensProps }
       style={{ pointerEvents: "none" }}
       frameloop="always"
     >
-      <Lens pointerRef={pointerRef} lensProps={lensProps} />
+      <Lens lines={lines} fontSize={fontSize} lensProps={lensProps} />
       <Preload all />
     </Canvas>
   );

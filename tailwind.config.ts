@@ -9,14 +9,14 @@ const config: Config = {
     extend: {
       colors: {
         navy: {
-          DEFAULT: "#0B1437",
-          900: "#080F2A",
-          800: "#0B1437",
-          700: "#152253",
+          DEFAULT: "#05080F",
+          900: "#03050B",
+          800: "#0A1024",
+          700: "#131D44",
         },
         sky: {
-          DEFAULT: "#3D7EFF",
-          soft: "#6FA0FF",
+          DEFAULT: "#4D8BFF",
+          soft: "#7FB0FF",
         },
         coral: {
           DEFAULT: "#FF7849",
@@ -37,9 +37,9 @@ const config: Config = {
         container: "1200px",
       },
       boxShadow: {
-        glow: "0 0 60px -15px rgba(61, 126, 255, 0.45)",
-        coral: "0 12px 40px -12px rgba(255, 120, 73, 0.55)",
-        card: "0 20px 50px -20px rgba(11, 20, 55, 0.25)",
+        glow: "0 0 70px -12px rgba(77, 139, 255, 0.6)",
+        coral: "0 12px 44px -10px rgba(255, 120, 73, 0.65)",
+        card: "0 20px 50px -20px rgba(3, 5, 11, 0.55)",
       },
       keyframes: {
         "pulse-dot": {
