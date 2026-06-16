@@ -1,12 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
 import { CALENDAR_URL, whatsappUrl } from "@/lib/config";
 import { HeroVisual } from "@/components/HeroVisual";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/icons";
 
+// Carga diferida y solo en cliente: la lente WebGL no entra en el bundle inicial.
+const FluidGlass = dynamic(() => import("@/components/reactbits/FluidGlass"), {
+  ssr: false,
+});
+
 export function Hero() {
   const reduce = useReducedMotion();
+
+  // La lente solo se monta en desktop y si el usuario no pidió menos movimiento,
+  // para proteger el rendimiento en móvil (la mayoría del tráfico).
+  const [showLens, setShowLens] = useState(false);
+  useEffect(() => {
+    const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const wideEnough = window.matchMedia("(min-width: 1024px)").matches;
+    setShowLens(motionOk && wideEnough);
+  }, []);
 
   const fade = {
     hidden: { opacity: 0, y: reduce ? 0 : 24 },
@@ -35,7 +51,17 @@ export function Hero() {
       />
       <div className="sunrise-glow pointer-events-none absolute -top-20 right-0 h-[600px] w-[600px]" />
 
-      <div className="container-px relative grid items-center gap-12 pb-20 pt-32 sm:pt-36 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-40">
+      {/* Lente de vidrio (FluidGlass) — capa decorativa detrás del contenido,
+          sin capturar el puntero para no interferir con los botones. */}
+      {showLens && (
+        <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
+          <FluidGlass
+            lensProps={{ scale: 0.22, ior: 1.15, thickness: 5, chromaticAberration: 0.1, anisotropy: 0.01 }}
+          />
+        </div>
+      )}
+
+      <div className="container-px relative z-10 grid items-center gap-12 pb-20 pt-32 sm:pt-36 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-40">
         <div>
           <motion.span
             custom={0}
