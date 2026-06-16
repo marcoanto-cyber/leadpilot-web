@@ -15,13 +15,12 @@ const FluidGlass = dynamic(() => import("@/components/reactbits/FluidGlass"), {
 export function Hero() {
   const reduce = useReducedMotion();
 
-  // La lente solo se monta en desktop y si el usuario no pidió menos movimiento,
-  // para proteger el rendimiento en móvil (la mayoría del tráfico).
-  const [showLens, setShowLens] = useState(false);
+  // El titular de vidrio se monta en desktop y móvil; solo se omite si el
+  // usuario pidió menos movimiento (ahí mostramos el titular HTML estático).
+  // En desktop la lente sigue el cursor; en táctil deriva sola.
+  const [showGlass, setShowGlass] = useState(false);
   useEffect(() => {
-    const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const wideEnough = window.matchMedia("(min-width: 1024px)").matches;
-    setShowLens(motionOk && wideEnough);
+    setShowGlass(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
 
   const fade = {
@@ -51,6 +50,28 @@ export function Hero() {
       />
       <div className="sunrise-glow pointer-events-none absolute -top-20 right-0 h-[600px] w-[600px]" />
 
+      {/* Lente de vidrio (FluidGlass) sobre TODO el hero, detrás del contenido y
+          sin capturar el puntero. Refracta el titular WebGL anclado al DOM. */}
+      {showGlass && (
+        <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
+          <FluidGlass
+            anchorId="hero-headline-anchor"
+            lines={[
+              { text: "Deja de perder", color: "#FFFFFF" },
+              { text: "clientes por no", color: "#FFFFFF" },
+              { text: "responder a tiempo.", color: "#FF7849" },
+            ]}
+            lensProps={{
+              scale: 0.34,
+              ior: 1.25,
+              thickness: 8,
+              chromaticAberration: 0.22,
+              anisotropy: 0.02,
+            }}
+          />
+        </div>
+      )}
+
       <div className="container-px relative z-10 grid items-center gap-12 pb-20 pt-32 sm:pt-36 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-40">
         <div>
           <motion.span
@@ -64,36 +85,23 @@ export function Hero() {
             Automatización con IA para PyMEs
           </motion.span>
 
-          {showLens ? (
+          {showGlass ? (
             <>
               {/* Titular real para SEO y lectores de pantalla (no visible) */}
               <h1 className="sr-only">
                 Deja de perder clientes por no responder a tiempo.
               </h1>
-              {/* Titular WebGL que la lente de vidrio refracta (solo desktop) */}
+              {/* Caja-ancla: reserva el espacio y le dice a la lente dónde y de
+                  qué tamaño dibujar el titular WebGL. Más alta = texto más grande. */}
               <motion.div
+                id="hero-headline-anchor"
                 custom={1}
                 variants={fade}
                 initial="hidden"
                 animate="show"
                 aria-hidden="true"
-                className="mt-5 h-[220px] w-full lg:h-[260px]"
-              >
-                <FluidGlass
-                  lines={[
-                    { text: "Deja de perder", color: "#FFFFFF" },
-                    { text: "clientes por no", color: "#FFFFFF" },
-                    { text: "responder a tiempo.", color: "#FF7849" },
-                  ]}
-                  lensProps={{
-                    scale: 0.3,
-                    ior: 1.25,
-                    thickness: 8,
-                    chromaticAberration: 0.2,
-                    anisotropy: 0.02,
-                  }}
-                />
-              </motion.div>
+                className="mt-5 h-[210px] w-full sm:h-[250px] lg:h-[300px]"
+              />
             </>
           ) : (
             <motion.h1

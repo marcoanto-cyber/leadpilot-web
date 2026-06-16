@@ -168,16 +168,17 @@ const BorderGlow = ({
     [getEdgeProximity, getCursorAngle]
   );
 
-  useEffect(() => {
-    if (!animated || !cardRef.current) return;
-    // No reproducir el barrido de entrada si el usuario prefiere menos movimiento.
+  // Barrido luminoso (intro). Reutilizable: lo dispara el prop `animated`
+  // y también el scroll-into-view en dispositivos táctiles (sin hover).
+  const runSweep = useCallback(() => {
+    const card = cardRef.current;
+    if (!card) return;
     if (
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       return;
     }
-    const card = cardRef.current;
     const angleStart = 110;
     const angleEnd = 465;
     card.classList.add("sweep-active");
@@ -220,7 +221,34 @@ const BorderGlow = ({
       onUpdate: (v) => card.style.setProperty("--edge-proximity", `${v}`),
       onEnd: () => card.classList.remove("sweep-active"),
     });
-  }, [animated]);
+  }, []);
+
+  useEffect(() => {
+    if (animated) runSweep();
+  }, [animated, runSweep]);
+
+  // En táctil no hay hover: reproduce el barrido cuando la tarjeta entra en
+  // pantalla, para que el efecto también luzca en móvil.
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card || typeof window === "undefined") return;
+    if (!window.matchMedia("(hover: none)").matches) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            runSweep();
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.45 }
+    );
+    io.observe(card);
+    return () => io.disconnect();
+  }, [runSweep]);
 
   const styleVars: Record<string, string | number> = {
     "--card-bg": backgroundColor,
