@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/PageHero";
 import { Plans } from "@/components/sections/Plans";
 import { FinalCTA } from "@/components/sections/FinalCTA";
+import { StrandsBackdrop } from "@/components/reactbits/StrandsBackdrop";
 import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function PlanesPage() {
         eyebrow="Planes"
         title="Elige tu plan de vuelo."
         subtitle="Precios de referencia para PyMEs. El alcance final lo definimos juntos en una llamada, según lo que tu negocio necesita."
+        backdrop={<StrandsBackdrop />}
       >
         <Link href="/contacto" className="btn-primary group">
           Agenda una llamada

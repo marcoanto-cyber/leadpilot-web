@@ -8,6 +8,8 @@ type PageHeroProps = {
   children?: ReactNode;
   /** Color del punto del eyebrow */
   accent?: "sky" | "coral";
+  /** Capa decorativa full-bleed detrás del contenido (p. ej. una animación). */
+  backdrop?: ReactNode;
 };
 
 /** Hero oscuro reutilizable para páginas internas (servicios, planes, etc.). */
@@ -17,6 +19,7 @@ export function PageHero({
   subtitle,
   children,
   accent = "sky",
+  backdrop,
 }: PageHeroProps) {
   return (
     <section className="relative overflow-hidden bg-navy text-white">
@@ -30,7 +33,12 @@ export function PageHero({
             "radial-gradient(80% 70% at 50% 20%, black 30%, transparent 100%)",
         }}
       />
-      <div className="sunrise-glow pointer-events-none absolute -top-24 right-0 h-[520px] w-[520px]" />
+      {backdrop && (
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          {backdrop}
+        </div>
+      )}
+      <div className="sunrise-glow pointer-events-none absolute -top-24 right-0 h-[520px] w-[520px] rounded-full blur-[120px]" />
 
       <div className="container-px relative z-10 pb-16 pt-32 sm:pb-20 sm:pt-40">
         <Reveal>

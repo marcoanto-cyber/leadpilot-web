@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
 import { CALENDAR_URL, whatsappUrl } from "@/lib/config";
+import { HeroVisual } from "@/components/HeroVisual";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/icons";
 
-// Carga diferida y solo en cliente: el WebGL no entra en el bundle inicial.
+// Carga diferida y solo en cliente: la lente WebGL no entra en el bundle inicial.
 const FluidGlass = dynamic(() => import("@/components/reactbits/FluidGlass"), {
-  ssr: false,
-});
-const Strands = dynamic(() => import("@/components/reactbits/Strands"), {
   ssr: false,
 });
 
@@ -177,26 +175,8 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex justify-center lg:justify-end"
-          aria-hidden="true"
         >
-          {/* Strands (React Bits): hilos de luz fluidos con los colores de marca */}
-          <div className="h-[300px] w-full max-w-[560px] sm:h-[380px] lg:h-[440px]">
-            <Strands
-              colors={["#FF7849", "#4D8BFF", "#FFC56E"]}
-              count={3}
-              speed={0.5}
-              amplitude={1}
-              waviness={1}
-              thickness={0.7}
-              glow={2.6}
-              taper={3}
-              spread={1}
-              intensity={0.7}
-              saturation={1.4}
-              opacity={1}
-              scale={1.4}
-            />
-          </div>
+          <HeroVisual />
         </motion.div>
       </div>
 

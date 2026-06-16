@@ -25,7 +25,7 @@ const steps = [
 export function HowItWorks() {
   return (
     <section id="como-funciona" className="relative bg-navy py-20 text-white sm:py-28">
-      <div className="sunrise-glow pointer-events-none absolute left-0 top-10 h-[400px] w-[400px] opacity-60" />
+      <div className="sunrise-glow pointer-events-none absolute -left-40 -top-24 h-[480px] w-[480px] rounded-full opacity-40 blur-[130px]" />
       <div className="container-px relative">
         <Reveal>
           <span className="eyebrow">
