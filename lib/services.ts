@@ -105,7 +105,7 @@ export const services: Service[] = [
     name: "Cursos y Membresías",
     eyebrow: "Servicio",
     tagline:
-      "Plataforma LMS para vender y gestionar tus videocursos y membresías.",
+      "Tu propia plataforma de videocursos y membresías, lista para vender y gestionar tu contenido.",
     summary:
       "Monetiza tu conocimiento con un espacio propio para cursos, accesos y comunidad.",
     icon: WrenchIcon,

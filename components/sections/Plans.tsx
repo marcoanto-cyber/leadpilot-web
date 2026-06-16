@@ -20,7 +20,7 @@ const plans: Plan[] = [
     monthly: "$2,500",
     tagline: "Lo esencial para arrancar y dejar de perder mensajes.",
     features: [
-      "Configuración base de GoHighLevel",
+      "Configuración base de tu plataforma a medida",
       "Flujos de automatización esenciales",
       "1 bot de IA para WhatsApp y redes sociales",
       "Acompañamiento personalizado 20 días",
@@ -193,7 +193,7 @@ export function Plans({ showHeading = true }: { showHeading?: boolean }) {
         {/* Nota de costos de plataforma */}
         <Reveal delay={0.15}>
           <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-mist">
-            Los precios no incluyen los costos de uso de la plataforma (mensajes
+            Los precios no incluyen los costos de uso de tu plataforma (mensajes
             de WhatsApp, consumo de IA, envíos de email), que se facturan según
             el consumo de cada negocio.
           </p>
