@@ -26,7 +26,7 @@ export default function PlanesPage() {
         </Link>
       </PageHero>
 
-      <Plans />
+      <Plans showHeading={false} />
       <FinalCTA />
     </main>
   );

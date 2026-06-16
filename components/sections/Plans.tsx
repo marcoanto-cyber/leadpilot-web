@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { CALENDAR_URL } from "@/lib/config";
@@ -5,78 +6,82 @@ import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
 type Plan = {
   name: string;
-  price: string;
-  priceNote: string;
+  implementation: string;
+  monthly: string;
   tagline: string;
   features: string[];
   featured?: boolean;
-  cta: string;
 };
 
 const plans: Plan[] = [
   {
-    name: "Esencial",
-    price: "desde $4,900",
-    priceNote: "MXN / mes",
-    tagline: "Para dejar de perder mensajes y arrancar con la automatización.",
+    name: "Despegue",
+    implementation: "$12,500",
+    monthly: "$2,500",
+    tagline: "Lo esencial para arrancar y dejar de perder mensajes.",
     features: [
-      "Respuesta automática 24/7 en WhatsApp",
-      "Captura y orden de prospectos",
-      "1 flujo de seguimiento",
-      "Reporte mensual de resultados",
+      "Configuración base de GoHighLevel",
+      "Flujos de automatización esenciales",
+      "1 bot de IA para WhatsApp y redes sociales",
+      "Acompañamiento personalizado 20 días",
+      "Soporte técnico",
     ],
-    cta: "Agenda una llamada",
   },
   {
-    name: "Pro",
-    price: "desde $9,900",
-    priceNote: "MXN / mes",
-    tagline: "El favorito: automatiza atención, seguimiento y agenda completa.",
+    name: "Crucero",
+    implementation: "$28,000",
+    monthly: "$3,500",
+    tagline: "El favorito: atención, ventas y marketing trabajando juntos.",
+    featured: true,
     features: [
-      "Todo lo de Esencial, y además:",
-      "IA que califica y agenda citas sola",
-      "Seguimientos múltiples automáticos",
-      "Integración con tu CRM y calendario",
-      "Optimización mensual de mensajes",
+      "Todo lo de Despegue",
+      "Pipelines y gestión de equipo comercial",
+      "Email marketing + WhatsApp marketing",
+      "1 página web / funnel de conversión",
+      "Notificaciones internas y asignación de leads",
+      "Bots de IA multicanal",
+      "Acompañamiento personalizado 3 meses",
+      "Soporte técnico prioritario",
+    ],
+  },
+  {
+    name: "Comando",
+    implementation: "$80,000",
+    monthly: "$5,000",
+    tagline: "El ecosistema completo para operaciones que escalan.",
+    features: [
+      "Todo lo de Crucero",
+      "Implementación completa del ecosistema",
+      "LMS para videocursos / membresías",
+      "Automatizaciones complejas multi-departamento",
+      "Múltiples funnels y páginas",
+      "Acompañamiento personalizado 6 meses",
       "Soporte prioritario",
     ],
-    featured: true,
-    cta: "Agenda una llamada",
-  },
-  {
-    name: "Personalizado",
-    price: "Hablemos",
-    priceNote: "a tu medida",
-    tagline: "Para operaciones con varios canales, equipos o necesidades especiales.",
-    features: [
-      "Automatizaciones a la medida",
-      "Integraciones con tus sistemas internos",
-      "Flujos para varios equipos o sucursales",
-      "Acompañamiento dedicado",
-    ],
-    cta: "Agenda una llamada",
   },
 ];
 
-export function Plans() {
+export function Plans({ showHeading = true }: { showHeading?: boolean }) {
   return (
     <section id="planes" className="bg-cloud py-20 sm:py-28">
       <div className="container-px">
-        <Reveal>
-          <div className="text-center">
-            <span className="eyebrow">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky" />
-              Planes
-            </span>
-            <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
-              Elige tu plan de vuelo.
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-mist">
-              Precios de referencia para PyMEs. El alcance final lo definimos
-              juntos en la llamada, según lo que tu negocio necesita.
-            </p>
-          </div>
-        </Reveal>
+        {showHeading && (
+          <Reveal>
+            <div className="text-center">
+              <span className="eyebrow">
+                <span className="h-1.5 w-1.5 rounded-full bg-sky" />
+                Planes
+              </span>
+              <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
+                Elige tu plan de vuelo.
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-lg text-mist">
+                Precios de referencia para PyMEs. El alcance final lo definimos
+                juntos en la llamada, según lo que tu negocio necesita.
+              </p>
+            </div>
+          </Reveal>
+        )}
 
         <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-3">
           {plans.map((plan, i) => (
@@ -85,7 +90,7 @@ export function Plans() {
                 max={plan.featured ? 5 : 6}
                 className={`relative flex h-full flex-col rounded-3xl p-7 transition-shadow duration-300 ${
                   plan.featured
-                    ? "bg-navy text-white shadow-glow ring-1 ring-sky/40 lg:-mt-4 lg:mb-0"
+                    ? "bg-navy text-white shadow-glow ring-1 ring-sky/40 lg:-mt-4"
                     : "border border-navy/10 bg-white text-ink shadow-card hover:shadow-glow"
                 }`}
               >
@@ -95,9 +100,7 @@ export function Plans() {
                   </span>
                 )}
 
-                <h3 className="font-display text-xl font-semibold">
-                  {plan.name}
-                </h3>
+                <h3 className="font-display text-xl font-semibold">{plan.name}</h3>
                 <p
                   className={`mt-2 text-sm ${
                     plan.featured ? "text-cloud/70" : "text-mist"
@@ -106,17 +109,33 @@ export function Plans() {
                   {plan.tagline}
                 </p>
 
-                <div className="mt-6 flex items-end gap-1.5">
-                  <span className="font-display text-3xl font-bold">
-                    {plan.price}
-                  </span>
-                  <span
-                    className={`mb-1 text-sm ${
-                      plan.featured ? "text-cloud/60" : "text-mist"
+                <div className="mt-6">
+                  <div className="flex items-end gap-1.5">
+                    <span className="font-display text-3xl font-bold">
+                      {plan.implementation}
+                    </span>
+                    <span
+                      className={`mb-1 text-sm ${
+                        plan.featured ? "text-cloud/60" : "text-mist"
+                      }`}
+                    >
+                      MXN implementación
+                    </span>
+                  </div>
+                  <div
+                    className={`mt-1 font-display text-lg font-semibold ${
+                      plan.featured ? "text-amber" : "text-coral-dark"
                     }`}
                   >
-                    {plan.priceNote}
-                  </span>
+                    + {plan.monthly} MXN/mes
+                  </div>
+                  <p
+                    className={`mt-1 text-xs ${
+                      plan.featured ? "text-cloud/50" : "text-mist"
+                    }`}
+                  >
+                    Pago único de implementación + mensualidad
+                  </p>
                 </div>
 
                 <ul className="mt-6 flex flex-1 flex-col gap-3">
@@ -127,11 +146,7 @@ export function Plans() {
                           plan.featured ? "text-amber" : "text-sky"
                         }`}
                       />
-                      <span
-                        className={
-                          plan.featured ? "text-cloud/85" : "text-ink/80"
-                        }
-                      >
+                      <span className={plan.featured ? "text-cloud/85" : "text-ink/80"}>
                         {f}
                       </span>
                     </li>
@@ -142,11 +157,9 @@ export function Plans() {
                   href={CALENDAR_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group mt-8 ${
-                    plan.featured ? "btn-primary" : "btn-outline"
-                  }`}
+                  className={`group mt-8 ${plan.featured ? "btn-primary" : "btn-outline"}`}
                 >
-                  {plan.cta}
+                  Agenda una llamada
                   <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                 </a>
               </TiltCard>
@@ -154,9 +167,35 @@ export function Plans() {
           ))}
         </div>
 
+        {/* Enterprise — franja inferior */}
         <Reveal delay={0.1}>
-          <p className="mt-8 text-center text-sm text-mist">
-            Sin contratos forzosos. Cancelas cuando quieras.
+          <div className="mt-6 flex flex-col items-start gap-6 overflow-hidden rounded-3xl border border-navy/10 bg-navy p-8 text-white shadow-glow sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative">
+              <span className="eyebrow">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber" />
+                Enterprise
+              </span>
+              <h3 className="mt-4 font-display text-2xl font-semibold">
+                Cotización personalizada
+              </h3>
+              <p className="mt-2 max-w-xl text-cloud/70">
+                Solución a la medida para empresas grandes, con integraciones,
+                volumen y necesidades específicas.
+              </p>
+            </div>
+            <Link href="/contacto" className="btn-primary group shrink-0">
+              Solicita una cotización
+              <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </Reveal>
+
+        {/* Nota de costos de plataforma */}
+        <Reveal delay={0.15}>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-mist">
+            Los precios no incluyen los costos de uso de la plataforma (mensajes
+            de WhatsApp, consumo de IA, envíos de email), que se facturan según
+            el consumo de cada negocio.
           </p>
         </Reveal>
       </div>
