@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/motion/Reveal";
-import { TiltCard } from "@/components/motion/TiltCard";
+import BorderGlow from "@/components/reactbits/BorderGlow";
 import { ClockIcon, ChainBreakIcon, RepeatIcon } from "@/components/icons";
 
 const pains = [
@@ -39,16 +39,27 @@ export function Problem() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {pains.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.12}>
-              <TiltCard className="h-full rounded-3xl border border-navy/10 bg-white p-7 shadow-card transition-shadow duration-300 hover:shadow-glow">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/10 text-coral-dark">
-                  <p.icon className="h-6 w-6" />
+            <Reveal key={p.title} delay={i * 0.12} className="h-full">
+              <BorderGlow
+                className="h-full"
+                backgroundColor="#0B1437"
+                borderRadius={24}
+                glowColor="16 100% 66%"
+                glowRadius={34}
+                edgeSensitivity={28}
+                coneSpread={22}
+                colors={["#3D7EFF", "#FF7849", "#FFC56E"]}
+              >
+                <div className="flex h-full flex-col p-7">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/15 text-coral">
+                    <p.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl font-semibold text-white">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 leading-relaxed text-cloud/70">{p.text}</p>
                 </div>
-                <h3 className="mt-5 font-display text-xl font-semibold text-ink">
-                  {p.title}
-                </h3>
-                <p className="mt-3 leading-relaxed text-mist">{p.text}</p>
-              </TiltCard>
+              </BorderGlow>
             </Reveal>
           ))}
         </div>
