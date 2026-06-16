@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy: #0b1437;
+  --color-sky: #3d7eff;
+  --color-coral: #ff7849;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cloud text-ink font-body antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco visible y consistente para navegación por teclado */
+  :focus-visible {
+    outline: 3px solid var(--color-sky);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Compensa el scroll por anclas para que el navbar fijo no tape los títulos */
+  section[id] {
+    scroll-margin-top: 96px;
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply mx-auto w-full max-w-container px-5 sm:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-coral px-7 py-3.5
+      font-display text-base font-semibold text-white shadow-coral
+      transition-all duration-200 hover:bg-coral-dark hover:-translate-y-0.5
+      active:translate-y-0 cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/25
+      bg-white/5 px-7 py-3.5 font-display text-base font-semibold text-white
+      transition-all duration-200 hover:bg-white/10 hover:border-white/40 cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15
+      bg-white px-7 py-3.5 font-display text-base font-semibold text-navy
+      transition-all duration-200 hover:border-sky hover:text-sky hover:-translate-y-0.5 cursor-pointer;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-sky/30 bg-sky/10
+      px-4 py-1.5 font-display text-xs font-semibold uppercase tracking-[0.18em] text-sky;
+  }
+}
+
+/* Degradado de "amanecer al horizonte" reutilizable */
+.sunrise-glow {
+  background: radial-gradient(
+    60% 60% at 70% 20%,
+    rgba(255, 197, 110, 0.22) 0%,
+    rgba(255, 120, 73, 0.14) 35%,
+    rgba(61, 126, 255, 0.06) 65%,
+    transparent 100%
+  );
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
