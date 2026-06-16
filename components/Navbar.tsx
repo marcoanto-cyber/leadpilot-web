@@ -1,19 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CALENDAR_URL, site } from "@/lib/config";
 import { PlaneMark } from "./icons";
 
 const links = [
-  { href: "#problema", label: "Problema" },
-  { href: "#como-funciona", label: "Cómo funciona" },
-  { href: "#planes", label: "Planes" },
-  { href: "#casos", label: "Casos" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/planes", label: "Planes" },
+  { href: "/casos", label: "Casos" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,6 +24,14 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Cierra el menú móvil al cambiar de ruta.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
@@ -32,25 +43,28 @@ export function Navbar() {
         }`}
         aria-label="Navegación principal"
       >
-        <a
-          href="#inicio"
+        <Link
+          href="/"
           className="flex items-center gap-2.5 font-display text-lg font-bold text-white"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky to-coral text-white">
             <PlaneMark className="h-5 w-5" />
           </span>
           {site.name}
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a
+              <Link
                 href={l.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-cloud/80 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+                aria-current={isActive(l.href) ? "page" : undefined}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10 hover:text-white ${
+                  isActive(l.href) ? "text-white" : "text-cloud/80"
+                }`}
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -66,7 +80,6 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Móvil */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -90,13 +103,15 @@ export function Navbar() {
           <ul className="flex flex-col gap-1">
             {links.map((l) => (
               <li key={l.href}>
-                <a
+                <Link
                   href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-xl px-4 py-3 text-base font-medium text-cloud/85 hover:bg-white/10 hover:text-white"
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className={`block rounded-xl px-4 py-3 text-base font-medium hover:bg-white/10 hover:text-white ${
+                    isActive(l.href) ? "text-white" : "text-cloud/85"
+                  }`}
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -104,7 +119,6 @@ export function Navbar() {
             href={CALENDAR_URL}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
             className="btn-primary mt-3 w-full"
           >
             Agenda una llamada

@@ -62,7 +62,7 @@ export function Hero() {
               { text: "responder a tiempo.", color: "#FF7849" },
             ]}
             lensProps={{
-              scale: 0.34,
+              scale: 0.23,
               ior: 1.25,
               thickness: 8,
               chromaticAberration: 0.22,

@@ -1,11 +1,12 @@
+import Link from "next/link";
 import { CALENDAR_URL, whatsappUrl, site } from "@/lib/config";
 import { PlaneMark } from "@/components/icons";
 
 const links = [
-  { href: "#problema", label: "Problema" },
-  { href: "#como-funciona", label: "Cómo funciona" },
-  { href: "#planes", label: "Planes" },
-  { href: "#casos", label: "Casos" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/planes", label: "Planes" },
+  { href: "/casos", label: "Casos" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export function Footer() {
@@ -16,15 +17,15 @@ export function Footer() {
       <div className="container-px py-14">
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
           <div>
-            <a
-              href="#inicio"
+            <Link
+              href="/"
               className="flex items-center gap-2.5 font-display text-lg font-bold text-white"
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky to-coral text-white">
                 <PlaneMark className="h-5 w-5" />
               </span>
               {site.name}
-            </a>
+            </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed">
               Tu copiloto de inteligencia artificial. Automatizamos la atención,
               el seguimiento y las tareas repetitivas de tu PyME para que dejes
@@ -39,12 +40,12 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm">
               {links.map((l) => (
                 <li key={l.href}>
-                  <a
+                  <Link
                     href={l.href}
                     className="transition-colors duration-200 hover:text-white"
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

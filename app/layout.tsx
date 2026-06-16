@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { site } from "@/lib/config";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/sections/Footer";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import "./globals.css";
 
 const display = Space_Grotesk({
@@ -68,7 +71,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es-MX" className={`${display.variable} ${body.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+        <Footer />
+        <WhatsAppFab />
+      </body>
     </html>
   );
 }

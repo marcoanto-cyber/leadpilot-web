@@ -1,12 +1,10 @@
-import { Navbar } from "@/components/Navbar";
-import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { Hero } from "@/components/sections/Hero";
 import { Problem } from "@/components/sections/Problem";
 import { HowItWorks } from "@/components/sections/HowItWorks";
+import { Services } from "@/components/sections/Services";
 import { Plans } from "@/components/sections/Plans";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCTA } from "@/components/sections/FinalCTA";
-import { Footer } from "@/components/sections/Footer";
 import { site, CALENDAR_URL, whatsappUrl } from "@/lib/config";
 
 const jsonLd = {
@@ -28,17 +26,15 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
       <main>
         <Hero />
         <Problem />
         <HowItWorks />
+        <Services />
         <Plans />
         <Testimonials />
         <FinalCTA />
       </main>
-      <Footer />
-      <WhatsAppFab />
     </>
   );
 }

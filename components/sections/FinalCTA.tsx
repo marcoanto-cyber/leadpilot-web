@@ -4,7 +4,7 @@ import { ArrowRightIcon, WhatsAppIcon } from "@/components/icons";
 
 export function FinalCTA() {
   return (
-    <section id="contacto" className="relative overflow-hidden bg-navy py-20 text-white sm:py-28">
+    <section className="relative overflow-hidden bg-navy py-20 text-white sm:py-28">
       <div className="sunrise-glow pointer-events-none absolute inset-0" />
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
