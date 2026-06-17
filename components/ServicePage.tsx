@@ -146,48 +146,78 @@ export function ServicePage({
             </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <figure className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-card">
-              {/* Marco estilo ventana */}
-              <div className="flex items-center gap-1.5 border-b border-navy/10 bg-cloud px-4 py-3">
-                <span className="h-3 w-3 rounded-full bg-coral/60" />
-                <span className="h-3 w-3 rounded-full bg-amber/70" />
-                <span className="h-3 w-3 rounded-full bg-emerald-400/60" />
-                <span className="ml-3 truncate text-xs text-mist">
-                  app.leadpilot.mx · {service.name}
-                </span>
-              </div>
-
-              {service.mockup?.src ? (
-                <Image
-                  src={service.mockup.src}
-                  alt={service.mockup.alt}
-                  width={1600}
-                  height={900}
-                  className="h-auto w-full"
-                />
-              ) : (
-                <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-gradient-to-br from-cloud to-white p-8 text-center">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky/10 text-sky">
-                    <service.icon className="h-8 w-8" />
+          {service.mockup?.variant === "phone" && service.mockup.src ? (
+            /* Mockup de teléfono con sombra suave + leve tilt 3D al hover */
+            <Reveal delay={0.1}>
+              <figure className="mt-12 flex flex-col items-center">
+                <TiltCard max={9} className="w-[250px] sm:w-[270px]">
+                  <div
+                    className="relative aspect-[9/19] rounded-[2.6rem] border-[10px] border-[#0b1b2b] bg-[#0b1b2b]"
+                    style={{ boxShadow: "0 40px 90px -30px rgba(11,20,43,0.55)" }}
+                  >
+                    <div className="absolute left-1/2 top-2.5 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1b2b]" />
+                    <div className="relative h-full w-full overflow-hidden rounded-[1.9rem] bg-white">
+                      <Image
+                        src={service.mockup.src}
+                        alt={service.mockup.alt}
+                        fill
+                        sizes="270px"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  </div>
+                </TiltCard>
+                {service.mockup.caption && (
+                  <figcaption className="mt-6 max-w-md text-center text-sm text-mist">
+                    {service.mockup.caption}
+                  </figcaption>
+                )}
+              </figure>
+            </Reveal>
+          ) : (
+            <Reveal delay={0.1}>
+              <figure className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-card">
+                {/* Marco estilo ventana */}
+                <div className="flex items-center gap-1.5 border-b border-navy/10 bg-cloud px-4 py-3">
+                  <span className="h-3 w-3 rounded-full bg-coral/60" />
+                  <span className="h-3 w-3 rounded-full bg-amber/70" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-400/60" />
+                  <span className="ml-3 truncate text-xs text-mist">
+                    app.leadpilot.mx · {service.name}
                   </span>
-                  <p className="font-display text-lg font-semibold text-ink">
-                    Captura de {service.name}
-                  </p>
-                  <p className="max-w-md text-sm text-mist">
-                    [Placeholder] Aquí va la captura real del servicio. Pásamela y
-                    la enmarco en esta ventana.
-                  </p>
                 </div>
-              )}
 
-              {service.mockup?.caption && (
-                <figcaption className="border-t border-navy/10 px-4 py-3 text-center text-sm text-mist">
-                  {service.mockup.caption}
-                </figcaption>
-              )}
-            </figure>
-          </Reveal>
+                {service.mockup?.src ? (
+                  <Image
+                    src={service.mockup.src}
+                    alt={service.mockup.alt}
+                    width={1600}
+                    height={900}
+                    className="h-auto w-full"
+                  />
+                ) : (
+                  <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-gradient-to-br from-cloud to-white p-8 text-center">
+                    <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky/10 text-sky">
+                      <service.icon className="h-8 w-8" />
+                    </span>
+                    <p className="font-display text-lg font-semibold text-ink">
+                      Captura de {service.name}
+                    </p>
+                    <p className="max-w-md text-sm text-mist">
+                      [Placeholder] Aquí va la captura real del servicio. Pásamela
+                      y la enmarco en esta ventana.
+                    </p>
+                  </div>
+                )}
+
+                {service.mockup?.caption && (
+                  <figcaption className="border-t border-navy/10 px-4 py-3 text-center text-sm text-mist">
+                    {service.mockup.caption}
+                  </figcaption>
+                )}
+              </figure>
+            </Reveal>
+          )}
         </div>
       </section>
 

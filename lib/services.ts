@@ -26,7 +26,13 @@ export type Service = {
   /** Texto del problema que resuelve (placeholder editable). */
   problem: string;
   /** Mockup real enmarcado (sección de prueba). Pásame la captura por servicio. */
-  mockup?: { src?: string; alt: string; caption?: string };
+  mockup?: {
+    src?: string;
+    alt: string;
+    caption?: string;
+    /** "phone" lo enmarca en un teléfono; "browser" (por defecto) en una ventana. */
+    variant?: "phone" | "browser";
+  };
   /** (Opcional) imagen de escena cerca del cierre. */
   scene?: { src: string; alt: string; caption?: string };
 };
@@ -34,21 +40,29 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "automatizaciones-ia",
-    name: "Automatizaciones con IA",
+    name: "Automatización con IA",
     eyebrow: "Servicio",
     tagline:
-      "Respuestas, seguimiento y tareas repetitivas en piloto automático con inteligencia artificial.",
+      "Una IA que atiende a tus clientes en WhatsApp, Instagram y Facebook al instante, las 24 horas, y agenda por ti. Como tener un equipo que nunca duerme.",
     summary:
-      "Atiende al instante, da seguimiento sin que se caiga ningún prospecto y elimina el trabajo manual repetitivo.",
+      "Tus clientes escriben por todos lados y a toda hora. Tú no puedes estar en todos lados a toda hora.",
     icon: RepeatIcon,
     problem:
-      "[Placeholder] Describe aquí el dolor concreto que resuelve este servicio para tu cliente.",
+      "WhatsApp, Instagram, Facebook… los mensajes llegan por todas partes y al mismo tiempo. Mientras atiendes uno, otros tres se quedan esperando —y el que no recibe respuesta rápida se va con quien sí le contesta. Estar pegado a todas las bandejas, todo el día, es imposible (y agotador).",
     includes: [
-      "[Placeholder] Punto 1 de lo que incluye",
-      "[Placeholder] Punto 2 de lo que incluye",
-      "[Placeholder] Punto 3 de lo que incluye",
-      "[Placeholder] Punto 4 de lo que incluye",
+      "Contesta solo en WhatsApp, Instagram y Facebook, desde una sola conversación.",
+      "Responde en segundos, las 24 horas, incluso cuando estás dormido o en familia.",
+      "Entiende lo que pide el cliente y responde con el tono de tu negocio.",
+      "Agenda citas y deja al cliente en tu calendario, sin que tú muevas un dedo.",
+      "Da seguimiento a quien no respondió, hasta que agenda o compra.",
+      "Te pasa la conversación a ti cuando se necesita un humano. Tú decides cuándo entrar.",
     ],
+    mockup: {
+      src: "/Imagenes/servicio-automatizaciones-mockup.webp",
+      alt: "Conversación de un cliente con el bot de IA de Lead Pilot atendiendo en automático.",
+      caption: "Tu IA atendiendo una conversación real, con el tono de tu negocio.",
+      variant: "phone",
+    },
   },
   {
     slug: "marketing",
