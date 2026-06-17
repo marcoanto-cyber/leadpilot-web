@@ -21,10 +21,14 @@ export type Service = {
   tagline: string;
   summary: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-  /** Lo que incluye el servicio (placeholder editable). */
+  /** Lo que hace por ti, en formato benefit-based (placeholder editable). */
   includes: string[];
   /** Texto del problema que resuelve (placeholder editable). */
   problem: string;
+  /** Mockup real enmarcado (sección de prueba). Pásame la captura por servicio. */
+  mockup?: { src?: string; alt: string; caption?: string };
+  /** (Opcional) imagen de escena cerca del cierre. */
+  scene?: { src: string; alt: string; caption?: string };
 };
 
 export const services: Service[] = [

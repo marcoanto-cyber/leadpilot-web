@@ -1,102 +1,222 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Service } from "@/lib/services";
-import { PageHero } from "@/components/sections/PageHero";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Reveal } from "@/components/motion/Reveal";
-import { CALENDAR_URL } from "@/lib/config";
+import { TiltCard } from "@/components/motion/TiltCard";
+import { ServiceVisualPlaceholder } from "@/components/ServiceVisualPlaceholder";
 import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
 /**
  * Plantilla reutilizable de "página de servicio".
- * Estructura: hero del servicio → problema que resuelve → qué incluye →
- * mockup/imagen → CTA. Las 5 páginas de servicio la usan.
+ * Secciones: 1) hero con motion graphics al lado, 2) el problema,
+ * 3) qué hace por ti (benefits), 4) prueba (mockup enmarcado),
+ * 5) (opcional) imagen de escena, 6) CTA final.
+ * Navbar/footer vienen del layout raíz (consistentes en todo el sitio).
+ *
+ * Pasa `visual` para usar el motion graphics propio del servicio; si no, se
+ * muestra un placeholder on-brand.
  */
-export function ServicePage({ service }: { service: Service }) {
+export function ServicePage({
+  service,
+  visual,
+}: {
+  service: Service;
+  visual?: ReactNode;
+}) {
   return (
-    <>
-      <PageHero
-        eyebrow={service.eyebrow}
-        title={service.name}
-        subtitle={service.tagline}
-      >
-        <Link href="/contacto" className="btn-primary group">
-          Agenda una llamada
-          <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-        </Link>
-        <Link href="/servicios" className="btn-ghost">
-          Ver todos los servicios
-        </Link>
-      </PageHero>
+    <main>
+      {/* 1 · Hero del servicio (texto + motion graphics al lado) */}
+      <section className="relative overflow-hidden bg-navy text-white">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+            maskImage:
+              "radial-gradient(80% 70% at 50% 20%, black 30%, transparent 100%)",
+          }}
+        />
+        <div className="sunrise-glow pointer-events-none absolute -top-24 right-0 h-[520px] w-[520px] rounded-full blur-[120px]" />
 
-      {/* Problema que resuelve + Qué incluye */}
+        <div className="container-px relative z-10 grid items-center gap-12 pb-16 pt-32 sm:pt-40 lg:grid-cols-[1.05fr_1fr] lg:pb-20">
+          <Reveal>
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky" />
+              {service.eyebrow}
+            </span>
+            <h1 className="mt-5 max-w-2xl font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl">
+              {service.name}
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-cloud/75">
+              {service.tagline}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/contacto" className="btn-primary group">
+                Quiero recuperar mi tiempo
+                <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+              <Link href="/servicios" className="btn-ghost">
+                Ver todos los servicios
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="flex justify-center lg:justify-end" aria-hidden="true">
+            {visual ?? (
+              <ServiceVisualPlaceholder
+                icon={<service.icon className="h-10 w-10" />}
+                label={service.name}
+              />
+            )}
+          </div>
+        </div>
+
+        <div className="relative">
+          <svg
+            className="block h-10 w-full sm:h-16"
+            viewBox="0 0 1440 80"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path d="M0 80 C 360 20, 1080 20, 1440 80 L 1440 80 L 0 80 Z" fill="#F4F7FB" />
+          </svg>
+        </div>
+      </section>
+
+      {/* 2 · El problema */}
       <section className="bg-cloud py-20 sm:py-28">
-        <div className="container-px grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="container-px max-w-3xl">
           <Reveal>
             <span className="eyebrow !border-coral/30 !bg-coral/10 !text-coral-dark">
-              El problema que resuelve
+              El problema
             </span>
             <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
               {service.summary}
             </h2>
-            <p className="mt-4 leading-relaxed text-mist">{service.problem}</p>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="rounded-3xl border border-navy/10 bg-white p-7 shadow-card">
-              <h3 className="font-display text-xl font-semibold text-ink">
-                Qué incluye
-              </h3>
-              <ul className="mt-5 flex flex-col gap-3">
-                {service.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-ink/80">
-                    <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-sky" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="mt-4 text-lg leading-relaxed text-mist">
+              {service.problem}
+            </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Mockup / imagen del servicio (placeholder) */}
+      {/* 3 · Qué hace por ti */}
       <section className="bg-navy py-20 text-white sm:py-28">
         <div className="container-px">
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-navy-700/60 shadow-glow">
-              <div className="sunrise-glow pointer-events-none absolute inset-0 opacity-70" />
-              <div className="relative flex aspect-[16/9] flex-col items-center justify-center gap-3 p-8 text-center">
-                <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 text-sky">
-                  <service.icon className="h-8 w-8" />
-                </span>
-                <p className="font-display text-lg font-semibold">
-                  Mockup / imagen de {service.name}
-                </p>
-                <p className="max-w-md text-sm text-cloud/60">
-                  [Placeholder] Aquí irá una captura, mockup o demo del servicio.
-                  Reemplázalo cuando llenes esta página.
-                </p>
-              </div>
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky" />
+              Qué hace por ti
+            </span>
+            <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold leading-tight sm:text-4xl">
+              Tu negocio, atendido sin que tú estés encima.
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {service.includes.map((item, i) => (
+              <Reveal key={item} delay={i * 0.08} className="h-full">
+                <div className="flex h-full items-start gap-3 rounded-3xl border border-white/10 bg-navy-700/60 p-6">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky/15 text-sky">
+                    <CheckIcon className="h-4 w-4" />
+                  </span>
+                  <p className="leading-relaxed text-cloud/85">{item}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4 · Prueba: mockup real enmarcado */}
+      <section className="bg-cloud py-20 sm:py-28">
+        <div className="container-px">
+          <Reveal>
+            <div className="text-center">
+              <span className="eyebrow">
+                <span className="h-1.5 w-1.5 rounded-full bg-sky" />
+                Así se ve
+              </span>
+              <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
+                Software real, funcionando para tu negocio.
+              </h2>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-10 text-center">
-              <a
-                href={CALENDAR_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary group"
-              >
-                Agenda una llamada
-                <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </a>
-            </div>
+            <figure className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-card">
+              {/* Marco estilo ventana */}
+              <div className="flex items-center gap-1.5 border-b border-navy/10 bg-cloud px-4 py-3">
+                <span className="h-3 w-3 rounded-full bg-coral/60" />
+                <span className="h-3 w-3 rounded-full bg-amber/70" />
+                <span className="h-3 w-3 rounded-full bg-emerald-400/60" />
+                <span className="ml-3 truncate text-xs text-mist">
+                  app.leadpilot.mx · {service.name}
+                </span>
+              </div>
+
+              {service.mockup?.src ? (
+                <Image
+                  src={service.mockup.src}
+                  alt={service.mockup.alt}
+                  width={1600}
+                  height={900}
+                  className="h-auto w-full"
+                />
+              ) : (
+                <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-gradient-to-br from-cloud to-white p-8 text-center">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky/10 text-sky">
+                    <service.icon className="h-8 w-8" />
+                  </span>
+                  <p className="font-display text-lg font-semibold text-ink">
+                    Captura de {service.name}
+                  </p>
+                  <p className="max-w-md text-sm text-mist">
+                    [Placeholder] Aquí va la captura real del servicio. Pásamela y
+                    la enmarco en esta ventana.
+                  </p>
+                </div>
+              )}
+
+              {service.mockup?.caption && (
+                <figcaption className="border-t border-navy/10 px-4 py-3 text-center text-sm text-mist">
+                  {service.mockup.caption}
+                </figcaption>
+              )}
+            </figure>
           </Reveal>
         </div>
       </section>
 
+      {/* 5 · (Opcional) imagen de escena cerca del cierre */}
+      {service.scene && (
+        <section className="bg-navy py-20 text-white sm:py-28">
+          <div className="container-px">
+            <Reveal>
+              <figure className="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-white/10 shadow-glow">
+                <Image
+                  src={service.scene.src}
+                  alt={service.scene.alt}
+                  width={1600}
+                  height={900}
+                  className="h-auto w-full"
+                />
+                {service.scene.caption && (
+                  <figcaption className="px-4 py-3 text-center text-sm text-cloud/60">
+                    {service.scene.caption}
+                  </figcaption>
+                )}
+              </figure>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* 6 · CTA final */}
       <FinalCTA />
-    </>
+    </main>
   );
 }

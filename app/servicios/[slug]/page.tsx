@@ -22,9 +22,5 @@ export function generateMetadata({ params }: Params): Metadata {
 export default function ServiceDetailPage({ params }: Params) {
   const service = getService(params.slug);
   if (!service) notFound();
-  return (
-    <main>
-      <ServicePage service={service} />
-    </main>
-  );
+  return <ServicePage service={service} />;
 }
