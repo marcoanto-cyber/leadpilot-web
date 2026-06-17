@@ -73,11 +73,11 @@ export function Plans({ showHeading = true }: { showHeading?: boolean }) {
                 Planes
               </span>
               <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
-                Elige tu plan de vuelo.
+                Elige cuánto quieres que tu negocio trabaje por ti.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-lg text-mist">
-                Precios de referencia para PyMEs. El alcance final lo definimos
-                juntos en la llamada, según lo que tu negocio necesita.
+                Cada negocio es distinto, así que el precio final lo definimos
+                juntos en una llamada. Estos son los puntos de partida.
               </p>
             </div>
           </Reveal>
@@ -190,9 +190,17 @@ export function Plans({ showHeading = true }: { showHeading?: boolean }) {
           </div>
         </Reveal>
 
+        {/* Nota de cierre */}
+        <Reveal delay={0.12}>
+          <p className="mx-auto mt-10 max-w-2xl text-center text-lg text-ink">
+            ¿No sabes cuál te conviene? Cuéntame tu caso en una llamada y te digo
+            con honestidad qué necesitas —y qué no.
+          </p>
+        </Reveal>
+
         {/* Nota de costos de plataforma */}
         <Reveal delay={0.15}>
-          <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-mist">
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-mist">
             Los precios no incluyen los costos de uso de tu plataforma (mensajes
             de WhatsApp, consumo de IA, envíos de email), que se facturan según
             el consumo de cada negocio.

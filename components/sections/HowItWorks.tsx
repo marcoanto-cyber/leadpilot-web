@@ -5,20 +5,20 @@ const steps = [
   {
     n: "01",
     icon: CompassIcon,
-    title: "Diagnóstico",
-    text: "Analizamos tu operación y detectamos dónde se te están escapando clientes. Salimos con un plan de vuelo claro: qué automatizar primero y qué impacto esperar.",
+    title: "Platicamos tu caso",
+    text: "En una llamada corta me cuentas cómo trabajas y dónde se te van los clientes. Sin tecnicismos.",
   },
   {
     n: "02",
     icon: WrenchIcon,
-    title: "Implementación",
-    text: "Montamos tus flujos de IA: respuestas automáticas, seguimiento y conexión con tus herramientas actuales (WhatsApp, CRM, agenda). Sin que tengas que cambiar cómo trabajas.",
+    title: "Armo tu sistema",
+    text: "Yo configuro todo por ti: las respuestas automáticas, el seguimiento y la agenda. Tú no tocas nada complicado.",
   },
   {
     n: "03",
     icon: GaugeIcon,
-    title: "Operación y ajuste",
-    text: "Lo ponemos a volar y medimos resultados. Afinamos los mensajes y procesos mes con mes para que cada vez convierta más. Tú solo ves entrar los clientes.",
+    title: "Tu negocio empieza a volar solo",
+    text: "En pocos días tu negocio ya contesta, agenda y da seguimiento sin ti. Y yo te acompaño para que todo funcione perfecto.",
   },
 ];
 
@@ -33,11 +33,11 @@ export function HowItWorks() {
             Cómo funciona
           </span>
           <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold leading-tight sm:text-4xl">
-            Tres etapas para poner tu negocio en piloto automático.
+            Empezar es más fácil de lo que crees.
           </h2>
           <p className="mt-4 max-w-xl text-lg text-cloud/70">
-            Un proceso claro y sin sorpresas. Tú al mando en cada decisión,
-            nosotros en los controles técnicos.
+            Sin tecnicismos y sin que tengas que aprender nada nuevo. Yo me
+            encargo de la parte técnica; tú solo cuéntame tu caso.
           </p>
         </Reveal>
 

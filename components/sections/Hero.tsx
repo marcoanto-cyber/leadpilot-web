@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
-import { CALENDAR_URL, whatsappUrl } from "@/lib/config";
+import { CALENDAR_URL } from "@/lib/config";
 import { ProductDemo } from "@/components/ProductDemo";
-import { ArrowRightIcon, WhatsAppIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 
 // Carga diferida y solo en cliente: la lente WebGL no entra en el bundle inicial.
 const FluidGlass = dynamic(() => import("@/components/reactbits/FluidGlass"), {
@@ -57,9 +57,9 @@ export function Hero() {
           <FluidGlass
             anchorId="hero-headline-anchor"
             lines={[
-              { text: "Deja de perder", color: "#FFFFFF" },
-              { text: "clientes por no", color: "#FFFFFF" },
-              { text: "responder a tiempo.", color: "#FF7849" },
+              { text: "Tu negocio no para.", color: "#FFFFFF" },
+              { text: "Tú sí mereces", color: "#FFFFFF" },
+              { text: "hacerlo.", color: "#FF7849" },
             ]}
             lensProps={{
               scale: 0.23,
@@ -82,14 +82,14 @@ export function Hero() {
             className="eyebrow"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-coral" />
-            Automatización con IA para PyMEs
+            Automatización con IA para tu negocio
           </motion.span>
 
           {showGlass ? (
             <>
               {/* Titular real para SEO y lectores de pantalla (no visible) */}
               <h1 className="sr-only">
-                Deja de perder clientes por no responder a tiempo.
+                Tu negocio no para. Tú sí mereces hacerlo.
               </h1>
               {/* Caja-ancla: reserva el espacio y le dice a la lente dónde y de
                   qué tamaño dibujar el titular WebGL. Más alta = texto más grande. */}
@@ -111,9 +111,9 @@ export function Hero() {
               animate="show"
               className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
             >
-              Deja de perder clientes por{" "}
+              Tu negocio no para.{" "}
               <span className="relative whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-sky-soft via-amber to-coral">
-                no responder a tiempo
+                Tú sí mereces hacerlo
               </span>
               .
             </motion.h1>
@@ -126,10 +126,9 @@ export function Hero() {
             animate="show"
             className="mt-6 max-w-xl text-lg leading-relaxed text-cloud/75"
           >
-            Lead Pilot es tu copiloto de inteligencia artificial: contesta al
-            instante, da seguimiento sin que se te caiga ningún prospecto y
-            quita de encima las tareas repetitivas. Tú al mando, la IA en los
-            controles.
+            Deja de vivir pegado al teléfono. Lead Pilot contesta a tus
+            clientes, agenda tus citas y da seguimiento por ti —al instante y a
+            toda hora— para que tú recuperes tu tiempo sin perder una sola venta.
           </motion.p>
 
           <motion.div
@@ -145,12 +144,11 @@ export function Hero() {
               rel="noopener noreferrer"
               className="btn-primary group"
             >
-              Agenda una llamada
+              Quiero recuperar mi tiempo
               <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
             </a>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost">
-              <WhatsAppIcon className="h-5 w-5" />
-              WhatsApp directo
+            <a href="#como-funciona" className="btn-ghost">
+              Ver cómo funciona
             </a>
           </motion.div>
 
@@ -163,10 +161,8 @@ export function Hero() {
           >
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 animate-pulse-dot rounded-full bg-emerald-400" />
-              Implementación en semanas, no meses
+              Sin contratos eternos. Configuración en días, no en meses.
             </span>
-            <span className="hidden h-4 w-px bg-white/15 sm:block" />
-            <span>Hecho en México, español de aquí</span>
           </motion.div>
         </div>
 

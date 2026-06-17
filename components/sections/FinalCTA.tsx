@@ -20,11 +20,11 @@ export function FinalCTA() {
       <div className="container-px relative text-center">
         <Reveal>
           <h2 className="mx-auto max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
-            ¿Listo para dejar de perder clientes?
+            Tu tiempo vale más que estar contestando mensajes.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-cloud/75">
-            Agenda una llamada de 30 minutos. Sin compromiso: salimos de ahí con
-            un plan claro de qué automatizar primero en tu negocio.
+            Agenda una llamada sin compromiso. Te muestro cómo tu negocio puede
+            empezar a atender solo —y tú a vivir tranquilo— en cuestión de días.
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -34,7 +34,7 @@ export function FinalCTA() {
               rel="noopener noreferrer"
               className="btn-primary group"
             >
-              Agenda una llamada
+              Quiero recuperar mi tiempo
               <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
             </a>
             <a
@@ -44,12 +44,12 @@ export function FinalCTA() {
               className="btn-ghost"
             >
               <WhatsAppIcon className="h-5 w-5" />
-              Prefiero WhatsApp
+              Mándame un WhatsApp
             </a>
           </div>
 
           <p className="mt-6 text-sm text-cloud/50">
-            Respuesta el mismo día · Atención en español de México
+            ¿Prefieres escribir? Mándame un WhatsApp · Respuesta el mismo día
           </p>
         </Reveal>
       </div>

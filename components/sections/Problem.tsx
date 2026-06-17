@@ -4,19 +4,22 @@ import { ClockIcon, ChainBreakIcon, RepeatIcon } from "@/components/icons";
 
 const pains = [
   {
+    n: "01",
     icon: ClockIcon,
-    title: "Respondes tarde",
-    text: "El 78% de los clientes le compra al primer negocio que contesta. Si tardas horas, el prospecto ya se fue con la competencia.",
+    title: "No puedes desconectar",
+    text: "Cada mensaje sin contestar es una venta que se enfría. Así que contestas a toda hora, hasta en tu día libre. Tu negocio depende de que tú nunca apagues el teléfono.",
   },
   {
+    n: "02",
     icon: ChainBreakIcon,
-    title: "El seguimiento se te cae",
-    text: "Cotizaste, quedaste de marcar… y se perdió entre mil pendientes. Sin seguimiento constante, el dinero se queda en el aire.",
+    title: "Se te escapan clientes sin darte cuenta",
+    text: "Mientras atiendes a uno, tres más escribieron y no alcanzaste a responder. Para cuando los ves, ya se fueron con quien sí les contestó a tiempo.",
   },
   {
+    n: "03",
     icon: RepeatIcon,
-    title: "Tareas repetitivas te comen el día",
-    text: "Agendar, capturar datos, mandar el mismo mensaje veinte veces. Horas valiosas que podrías invertir en hacer crecer tu negocio.",
+    title: "El seguimiento se te cae",
+    text: "“Déjame lo checo y le aviso.” Y se te olvida. No por flojera, sino porque eres una sola persona haciendo el trabajo de cinco.",
   },
 ];
 
@@ -28,12 +31,15 @@ export function Problem() {
           <span className="eyebrow !border-coral/30 !bg-coral/10 !text-coral-dark">
             El problema
           </span>
-          <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
-            Cada mensaje sin responder es un cliente que se va con otro.
+          <h2 className="mt-5 max-w-3xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
+            Si dejas de contestar, dejas de vender. Y contestar te está costando
+            tu vida.
           </h2>
-          <p className="mt-4 max-w-xl text-lg text-mist">
-            No es falta de ganas, es falta de tiempo y de manos. Estos son los
-            tres huecos por donde se te escapan las ventas:
+          <p className="mt-4 max-w-2xl text-lg text-mist">
+            Lo conoces bien: el cliente que escribe a las 10 de la noche y, si no
+            respondes rápido, mañana ya le compró a otro. Así que vives con el
+            teléfono en la mano. En la comida. En el cine. En vacaciones que no
+            son vacaciones.
           </p>
         </Reveal>
 
@@ -52,8 +58,13 @@ export function Problem() {
                 colors={["#4D8BFF", "#FF7849", "#FFC56E"]}
               >
                 <div className="flex h-full flex-col p-7">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/15 text-coral">
-                    <p.icon className="h-6 w-6" />
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/15 text-coral">
+                      <p.icon className="h-6 w-6" />
+                    </div>
+                    <span className="font-display text-sm font-bold tracking-wider text-coral/70">
+                      {p.n}
+                    </span>
                   </div>
                   <h3 className="mt-5 font-display text-xl font-semibold text-white">
                     {p.title}

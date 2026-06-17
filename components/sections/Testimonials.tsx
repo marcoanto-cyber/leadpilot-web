@@ -7,23 +7,23 @@ import { QuoteIcon } from "@/components/icons";
 const testimonials = [
   {
     quote:
-      "Texto de testimonio de ejemplo. Aquí va lo que dijo tu cliente sobre cómo Lead Pilot le ayudó a responder más rápido y cerrar más ventas.",
+      "Antes no soltaba el teléfono ni en la cena. Ahora mis clientes reciben respuesta al instante y yo por fin desconecto. No he perdido ni una cita.",
     name: "Nombre Apellido",
-    role: "Dueño · Negocio de ejemplo",
+    role: "Tipo de negocio (ej. consultorio dental)",
     initials: "NA",
   },
   {
     quote:
-      "Segundo testimonio de ejemplo. Reemplázalo con un resultado concreto: cuántos clientes recuperó, cuánto tiempo ahorró o cuánto creció.",
+      "[Placeholder] El dolor antes → qué cambió → el beneficio emocional. Reemplázalo con la voz real de tu cliente: cuánto tiempo recuperó y cómo se siente ahora.",
     name: "Nombre Apellido",
-    role: "Gerente · Empresa de ejemplo",
+    role: "Tipo de negocio (ej. despacho contable)",
     initials: "NA",
   },
   {
     quote:
-      "Tercer testimonio de ejemplo. Una frase honesta y específica genera más confianza que mil adjetivos. Pon aquí la voz real de tu cliente.",
+      "[Placeholder] “Vivía contestando a toda hora; ahora el sistema atiende solo y yo me dedico a lo mío.” Una frase honesta y concreta vale más que mil adjetivos.",
     name: "Nombre Apellido",
-    role: "Fundadora · Marca de ejemplo",
+    role: "Tipo de negocio (ej. taller mecánico)",
     initials: "NA",
   },
 ];
@@ -38,10 +38,11 @@ export function Testimonials() {
             Casos
           </span>
           <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
-            Negocios que ya van en piloto automático.
+            Negocios como el tuyo que ya recuperaron su tiempo.
           </h2>
           <p className="mt-4 max-w-xl text-lg text-mist">
-            Resultados reales de PyMEs que dejaron de perder clientes.
+            El dolor de antes, qué cambió y cómo se siente hoy. Pronto, historias
+            reales de dueños que dejaron de vivir pegados al teléfono.
           </p>
         </Reveal>
 

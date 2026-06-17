@@ -17,12 +17,12 @@ export default function CasosPage() {
     <main>
       <PageHero
         eyebrow="Casos"
-        title="Negocios que ya van en piloto automático."
-        subtitle="Resultados reales de PyMEs que dejaron de perder clientes por no responder a tiempo."
+        title="Negocios como el tuyo que ya recuperaron su tiempo."
+        subtitle="El dolor de antes, qué cambió y cómo se siente hoy. Historias de dueños que dejaron de vivir pegados al teléfono."
         accent="coral"
       >
         <Link href="/contacto" className="btn-primary group">
-          Quiero estos resultados
+          Quiero recuperar mi tiempo
           <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
         </Link>
       </PageHero>

@@ -18,12 +18,12 @@ export default function PlanesPage() {
     <main>
       <PageHero
         eyebrow="Planes"
-        title="Elige tu plan de vuelo."
-        subtitle="Precios de referencia para PyMEs. El alcance final lo definimos juntos en una llamada, según lo que tu negocio necesita."
+        title="Elige cuánto quieres que tu negocio trabaje por ti."
+        subtitle="Cada negocio es distinto, así que el precio final lo definimos juntos en una llamada. Estos son los puntos de partida."
         backdrop={<StrandsBackdrop />}
       >
         <Link href="/contacto" className="btn-primary group">
-          Agenda una llamada
+          Quiero recuperar mi tiempo
           <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
         </Link>
       </PageHero>
