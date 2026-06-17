@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
 import { CALENDAR_URL, whatsappUrl } from "@/lib/config";
-import { HeroVisual } from "@/components/HeroVisual";
+import { ProductDemo } from "@/components/ProductDemo";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/icons";
 
 // Carga diferida y solo en cliente: la lente WebGL no entra en el bundle inicial.
@@ -176,7 +176,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex justify-center lg:justify-end"
         >
-          <HeroVisual />
+          <ProductDemo />
         </motion.div>
       </div>
 
