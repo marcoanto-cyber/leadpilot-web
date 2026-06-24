@@ -20,6 +20,8 @@ export type Service = {
   eyebrow: string;
   tagline: string;
   summary: string;
+  /** Texto del botón principal del hero (por defecto "Quiero recuperar mi tiempo"). */
+  cta?: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   /** Lo que hace por ti, en formato benefit-based (placeholder editable). */
   includes: string[];
@@ -66,21 +68,28 @@ export const services: Service[] = [
   },
   {
     slug: "marketing",
-    name: "Marketing: Email + WhatsApp",
-    eyebrow: "Servicio",
+    name: "Tus clientes ya te compraron una vez. Haz que vuelvan, sin que tú muevas un dedo.",
+    eyebrow: "Email y WhatsApp marketing",
     tagline:
-      "Campañas de email y WhatsApp que nutren, recuerdan y venden en automático.",
+      "La mayoría de tus ventas están dormidas en tu lista de contactos. Lead Pilot les manda el mensaje correcto en el momento correcto —por correo y WhatsApp— para que regresen, en piloto automático.",
     summary:
-      "Mantén tu marca presente con secuencias automáticas que convierten contactos en clientes.",
+      "Tu próxima venta probablemente ya está en tu lista. Solo hay que despertarla.",
+    cta: "Quiero hacer que mis clientes regresen",
     icon: ClockIcon,
     problem:
-      "[Placeholder] Describe aquí el dolor concreto que resuelve este servicio para tu cliente.",
+      "Conseguir un cliente nuevo cuesta caro. Pero los que ya te compraron se te olvidan, y se enfrían. No tienes tiempo de andar mandando promociones uno por uno. Por eso ese dinero se queda sobre la mesa.",
     includes: [
-      "[Placeholder] Punto 1 de lo que incluye",
-      "[Placeholder] Punto 2 de lo que incluye",
-      "[Placeholder] Punto 3 de lo que incluye",
-      "[Placeholder] Punto 4 de lo que incluye",
+      "Reactiva a los clientes que ya tienes. Mensajes automáticos que los hacen volver, sin que tú escribas uno por uno.",
+      "Llega donde sí te leen. WhatsApp se abre casi siempre; el correo refuerza. Usamos los dos.",
+      "Campañas que se mandan solas. Promociones, recordatorios y novedades programadas una vez y funcionando para siempre.",
+      "Vende mientras duermes. El sistema trabaja tu lista de contactos aunque tú estés en otra cosa.",
     ],
+    mockup: {
+      src: "/Imagenes/servicio-marketing-mockup.webp",
+      alt: "Panel de campañas de email y WhatsApp de Lead Pilot enviando mensajes en automático.",
+      caption: "Tus campañas de email y WhatsApp trabajando solas, mientras tú haces otra cosa.",
+      variant: "browser",
+    },
   },
   {
     slug: "ventas-crm",

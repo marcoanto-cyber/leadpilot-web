@@ -59,7 +59,7 @@ export function ServicePage({
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link href="/contacto" className="btn-primary group">
-                Quiero recuperar mi tiempo
+                {service.cta ?? "Quiero recuperar mi tiempo"}
                 <ArrowRightIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
               <Link href="/servicios" className="btn-ghost">

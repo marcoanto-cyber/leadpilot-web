@@ -4,11 +4,13 @@ import { notFound } from "next/navigation";
 import { services, getService } from "@/lib/services";
 import { ServicePage } from "@/components/ServicePage";
 import { ServiceAutomationVisual } from "@/components/ServiceAutomationVisual";
+import { ServiceMarketingVisual } from "@/components/ServiceMarketingVisual";
 import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
 
 // Motion graphics propio por servicio (los demás usan el placeholder on-brand).
 const visuals: Record<string, ReactNode> = {
   "automatizaciones-ia": <ServiceAutomationVisual />,
+  marketing: <ServiceMarketingVisual />,
 };
 
 // Animación interactiva dentro del mockup de teléfono (sección "Así se ve").
