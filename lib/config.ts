@@ -10,10 +10,16 @@ export const site = {
   title: "Lead Pilot — Automatización con IA para PyMEs en México",
   description:
     "Deja de perder clientes por no responder a tiempo. Automatizamos tu atención, seguimiento y tareas repetitivas con inteligencia artificial. Agenda una llamada.",
-  // Cambia esto cuando tengas tu dominio (para Open Graph / SEO)
-  url: "https://leadpilot.mx",
+  // Dominio en producción (para Open Graph / SEO / sitemap / canonical)
+  url: "https://hola.leadpilot.com.mx",
   locale: "es_MX",
 };
+
+// Token de verificación de Google Search Console.
+// 1) Entra a https://search.google.com/search-console y agrega la propiedad
+//    "https://hola.leadpilot.com.mx" (método: etiqueta HTML).
+// 2) Copia SOLO el valor del content (ej. "abc123...") y pégalo aquí.
+export const GOOGLE_SITE_VERIFICATION = "";
 
 // --- Botón principal: agendar llamada (Cal.com) ---
 export const CALENDAR_URL =

@@ -15,12 +15,16 @@ const FluidGlass = dynamic(() => import("@/components/reactbits/FluidGlass"), {
 export function Hero() {
   const reduce = useReducedMotion();
 
-  // El titular de vidrio se monta en desktop y móvil; solo se omite si el
-  // usuario pidió menos movimiento (ahí mostramos el titular HTML estático).
-  // En desktop la lente sigue el cursor; en táctil deriva sola.
+  // El lente WebGL (three.js) es caro en móvil, así que SOLO se monta en
+  // escritorio con puntero fino y ancho suficiente. En móvil/táctil o con
+  // reduced-motion mostramos el titular HTML con degradado (carga instantánea,
+  // sin descargar three.js). Así el hero es rápido donde más importa.
   const [showGlass, setShowGlass] = useState(false);
   useEffect(() => {
-    setShowGlass(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const ok =
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+      window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches;
+    setShowGlass(ok);
   }, []);
 
   const fade = {

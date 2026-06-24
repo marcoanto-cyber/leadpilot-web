@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
-import { site } from "@/lib/config";
+import { site, GOOGLE_SITE_VERIFICATION } from "@/lib/config";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
@@ -55,7 +55,14 @@ export const metadata: Metadata = {
     description: site.description,
     images: ["/og-image.svg"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = {

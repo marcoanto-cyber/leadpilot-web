@@ -4,10 +4,16 @@ import { notFound } from "next/navigation";
 import { services, getService } from "@/lib/services";
 import { ServicePage } from "@/components/ServicePage";
 import { ServiceAutomationVisual } from "@/components/ServiceAutomationVisual";
+import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
 
 // Motion graphics propio por servicio (los demás usan el placeholder on-brand).
 const visuals: Record<string, ReactNode> = {
   "automatizaciones-ia": <ServiceAutomationVisual />,
+};
+
+// Animación interactiva dentro del mockup de teléfono (sección "Así se ve").
+const phoneDemos: Record<string, ReactNode> = {
+  "automatizaciones-ia": <WhatsAppChatDemo />,
 };
 
 type Params = { params: { slug: string } };
@@ -29,5 +35,11 @@ export function generateMetadata({ params }: Params): Metadata {
 export default function ServiceDetailPage({ params }: Params) {
   const service = getService(params.slug);
   if (!service) notFound();
-  return <ServicePage service={service} visual={visuals[service.slug]} />;
+  return (
+    <ServicePage
+      service={service}
+      visual={visuals[service.slug]}
+      phoneDemo={phoneDemos[service.slug]}
+    />
+  );
 }

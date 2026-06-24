@@ -21,9 +21,13 @@ import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 export function ServicePage({
   service,
   visual,
+  phoneDemo,
 }: {
   service: Service;
   visual?: ReactNode;
+  /** Si se pasa, reemplaza la imagen dentro del mockup de teléfono por una
+   *  animación interactiva (p. ej. el chat de WhatsApp en automático). */
+  phoneDemo?: ReactNode;
 }) {
   return (
     <main>
@@ -146,7 +150,7 @@ export function ServicePage({
             </div>
           </Reveal>
 
-          {service.mockup?.variant === "phone" && service.mockup.src ? (
+          {phoneDemo || (service.mockup?.variant === "phone" && service.mockup.src) ? (
             /* Mockup de teléfono con sombra suave + leve tilt 3D al hover */
             <Reveal delay={0.1}>
               <figure className="mt-12 flex flex-col items-center">
@@ -155,19 +159,23 @@ export function ServicePage({
                     className="relative aspect-[9/19] rounded-[2.6rem] border-[10px] border-[#0b1b2b] bg-[#0b1b2b]"
                     style={{ boxShadow: "0 40px 90px -30px rgba(11,20,43,0.55)" }}
                   >
-                    <div className="absolute left-1/2 top-2.5 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1b2b]" />
+                    <div className="absolute left-1/2 top-2.5 z-20 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1b2b]" />
                     <div className="relative h-full w-full overflow-hidden rounded-[1.9rem] bg-white">
-                      <Image
-                        src={service.mockup.src}
-                        alt={service.mockup.alt}
-                        fill
-                        sizes="270px"
-                        className="object-cover object-top"
-                      />
+                      {phoneDemo ? (
+                        phoneDemo
+                      ) : (
+                        <Image
+                          src={service.mockup!.src!}
+                          alt={service.mockup!.alt}
+                          fill
+                          sizes="270px"
+                          className="object-cover object-top"
+                        />
+                      )}
                     </div>
                   </div>
                 </TiltCard>
-                {service.mockup.caption && (
+                {service.mockup?.caption && (
                   <figcaption className="mt-6 max-w-md text-center text-sm text-mist">
                     {service.mockup.caption}
                   </figcaption>
