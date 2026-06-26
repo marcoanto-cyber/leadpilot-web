@@ -16,7 +16,10 @@ import {
 
 export type Service = {
   slug: string;
+  /** Titular largo del servicio (se usa como H1 en la página de detalle). */
   name: string;
+  /** Nombre corto del servicio (etiqueta en las tarjetas y navegación). */
+  shortName: string;
   eyebrow: string;
   tagline: string;
   summary: string;
@@ -45,6 +48,7 @@ export const services: Service[] = [
   {
     slug: "automatizaciones-ia",
     name: "Automatización con IA",
+    shortName: "Automatización con IA",
     eyebrow: "Servicio",
     tagline:
       "Una IA que atiende a tus clientes en WhatsApp, Instagram y Facebook al instante, las 24 horas, y agenda por ti. Como tener un equipo que nunca duerme.",
@@ -71,6 +75,7 @@ export const services: Service[] = [
   {
     slug: "marketing",
     name: "Tus clientes ya te compraron una vez. Haz que vuelvan, sin que tú muevas un dedo.",
+    shortName: "Email + WhatsApp",
     eyebrow: "Email y WhatsApp marketing",
     tagline:
       "La mayoría de tus ventas están dormidas en tu lista de contactos. Lead Pilot les manda el mensaje correcto en el momento correcto —por correo y WhatsApp— para que regresen, en piloto automático.",
@@ -96,6 +101,7 @@ export const services: Service[] = [
   {
     slug: "ventas-crm",
     name: "Deja de adivinar en qué va cada cliente. Ten todo tu negocio en una sola pantalla.",
+    shortName: "Ventas y CRM",
     eyebrow: "Ventas, pipeline y equipo",
     tagline:
       "Cada prospecto, cada conversación, cada cita —ordenados y a la vista. Lead Pilot organiza tus ventas para que sepas exactamente a quién seguir, qué falta y dónde está tu dinero.",
@@ -122,6 +128,7 @@ export const services: Service[] = [
   {
     slug: "web-funnels",
     name: "Una página que trabaja como tu mejor vendedor, abierta las 24 horas.",
+    shortName: "Páginas Web y Funnels",
     eyebrow: "Páginas web y embudos de venta",
     tagline:
       "No una página bonita que nadie usa. Una página hecha para una cosa: convertir al que llega en un cliente que te escribe o agenda. Y conectada a todo lo demás de tu sistema.",
@@ -146,21 +153,30 @@ export const services: Service[] = [
   },
   {
     slug: "cursos-membresias",
-    name: "Cursos y Membresías",
-    eyebrow: "Servicio",
+    name: "Convierte lo que sabes en un ingreso que no depende de tu tiempo.",
+    shortName: "Cursos y Membresías",
+    eyebrow: "Cursos y membresías",
     tagline:
-      "Tu propia plataforma de videocursos y membresías, lista para vender y gestionar tu contenido.",
+      "Empaca tu conocimiento en un curso o membresía y véndelo una y otra vez. Lead Pilot monta toda la plataforma: videos, pagos y accesos, funcionando solos.",
     summary:
-      "Monetiza tu conocimiento con un espacio propio para cursos, accesos y comunidad.",
+      "Deja de cambiar horas por dinero. Que lo que sabes trabaje por ti.",
+    cta: "Quiero vender lo que sé",
     icon: WrenchIcon,
     problem:
-      "[Placeholder] Describe aquí el dolor concreto que resuelve este servicio para tu cliente.",
+      "Tu tiempo tiene un límite: solo puedes atender a cierta gente al día. Mientras cobres solo por tu tiempo, tu negocio tiene un techo. Y todo lo que sabes —que vale mucho— no lo estás aprovechando para vender sin estar presente.",
     includes: [
-      "[Placeholder] Punto 1 de lo que incluye",
-      "[Placeholder] Punto 2 de lo que incluye",
-      "[Placeholder] Punto 3 de lo que incluye",
-      "[Placeholder] Punto 4 de lo que incluye",
+      "Vende tu conocimiento mientras duermes. Grábalo una vez, véndelo infinitas. Ingreso que no depende de tus horas.",
+      "Todo en un solo lugar. Tus videos, los accesos de cada alumno y los pagos, ordenados y automáticos.",
+      "El alumno se inscribe y entra solo. Paga, recibe su acceso al instante y empieza. Tú no haces nada manual.",
+      "Rompe el techo de tu tiempo. Atiende a 10 o a 1,000 con el mismo esfuerzo.",
     ],
+    mockup: {
+      src: "/Imagenes/servicio-cursosylms-mockup.webp",
+      alt: "Plataforma de cursos y membresías de Lead Pilot con lecciones, accesos y pagos automáticos.",
+      caption: "Tu plataforma de cursos vendiendo y dando acceso sola, las 24 horas.",
+      variant: "laptop",
+      tilt: true,
+    },
   },
 ];
 

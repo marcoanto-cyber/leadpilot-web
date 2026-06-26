@@ -207,7 +207,7 @@ export function ServicePage({
             /* Mockup de laptop con sombra suave */
             <Reveal delay={0.1}>
               <figure className="mt-12 flex flex-col items-center">
-                <div className="w-full max-w-2xl">
+                <MaybeTilt enabled={!!service.mockup?.tilt} className="w-full max-w-2xl">
                   {/* Pantalla */}
                   <div
                     className="relative rounded-t-2xl border-[10px] border-b-0 border-[#0b1b2b] bg-[#0b1b2b]"
@@ -230,7 +230,7 @@ export function ServicePage({
                     <div className="absolute left-1/2 top-0 h-1.5 w-28 -translate-x-1/2 rounded-b-lg bg-white/10" />
                   </div>
                   <div className="mx-auto h-1.5 w-[58%] rounded-b-2xl bg-[#0b1b2b]/80 shadow-[0_18px_30px_-12px_rgba(11,20,43,0.5)]" />
-                </div>
+                </MaybeTilt>
                 {service.mockup?.caption && (
                   <figcaption className="mt-6 max-w-md text-center text-sm text-mist">
                     {service.mockup.caption}

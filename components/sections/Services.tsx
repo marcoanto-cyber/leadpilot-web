@@ -37,10 +37,15 @@ export function Services({ showHeading = true }: ServicesProps) {
                   href={`/servicios/${s.slug}`}
                   className="group flex h-full flex-col rounded-3xl border border-navy/10 bg-white p-7 shadow-card transition-shadow duration-300 hover:shadow-glow"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky/10 text-sky">
-                    <s.icon className="h-6 w-6" />
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky/10 text-sky">
+                      <s.icon className="h-6 w-6" />
+                    </div>
+                    <span className="rounded-full border border-sky/30 bg-sky/10 px-3 py-1 font-display text-xs font-semibold uppercase tracking-wide text-sky">
+                      {s.shortName}
+                    </span>
                   </div>
-                  <h3 className="mt-5 font-display text-xl font-semibold text-ink">
+                  <h3 className="mt-5 font-display text-lg font-semibold leading-snug text-ink">
                     {s.name}
                   </h3>
                   <p className="mt-3 flex-1 leading-relaxed text-mist">
