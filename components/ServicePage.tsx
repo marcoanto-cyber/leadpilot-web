@@ -18,6 +18,24 @@ import { CheckIcon, ArrowRightIcon } from "@/components/icons";
  * Pasa `visual` para usar el motion graphics propio del servicio; si no, se
  * muestra un placeholder on-brand.
  */
+/** Envuelve en TiltCard solo si `enabled`; si no, deja el contenido tal cual. */
+function MaybeTilt({
+  enabled,
+  className,
+  children,
+}: {
+  enabled: boolean;
+  className?: string;
+  children: ReactNode;
+}) {
+  if (!enabled) return <div className={className}>{children}</div>;
+  return (
+    <TiltCard max={6} className={className}>
+      {children}
+    </TiltCard>
+  );
+}
+
 export function ServicePage({
   service,
   visual,
@@ -184,42 +202,46 @@ export function ServicePage({
             </Reveal>
           ) : (
             <Reveal delay={0.1}>
-              <figure className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-card">
-                {/* Marco estilo ventana */}
-                <div className="flex items-center gap-1.5 border-b border-navy/10 bg-cloud px-4 py-3">
-                  <span className="h-3 w-3 rounded-full bg-coral/60" />
-                  <span className="h-3 w-3 rounded-full bg-amber/70" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-400/60" />
-                  <span className="ml-3 truncate text-xs text-mist">
-                    app.leadpilot.mx · {service.name}
-                  </span>
-                </div>
+              <figure className="mx-auto mt-10 flex max-w-4xl flex-col items-center">
+                <MaybeTilt enabled={!!service.mockup?.tilt} className="w-full">
+                  <div className="overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-card">
+                    {/* Marco estilo ventana */}
+                    <div className="flex items-center gap-1.5 border-b border-navy/10 bg-cloud px-4 py-3">
+                      <span className="h-3 w-3 rounded-full bg-coral/60" />
+                      <span className="h-3 w-3 rounded-full bg-amber/70" />
+                      <span className="h-3 w-3 rounded-full bg-emerald-400/60" />
+                      <span className="ml-3 truncate text-xs text-mist">
+                        app.leadpilot.com.mx · {service.eyebrow}
+                      </span>
+                    </div>
 
-                {service.mockup?.src ? (
-                  <Image
-                    src={service.mockup.src}
-                    alt={service.mockup.alt}
-                    width={1600}
-                    height={900}
-                    className="h-auto w-full"
-                  />
-                ) : (
-                  <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-gradient-to-br from-cloud to-white p-8 text-center">
-                    <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky/10 text-sky">
-                      <service.icon className="h-8 w-8" />
-                    </span>
-                    <p className="font-display text-lg font-semibold text-ink">
-                      Captura de {service.name}
-                    </p>
-                    <p className="max-w-md text-sm text-mist">
-                      [Placeholder] Aquí va la captura real del servicio. Pásamela
-                      y la enmarco en esta ventana.
-                    </p>
+                    {service.mockup?.src ? (
+                      <Image
+                        src={service.mockup.src}
+                        alt={service.mockup.alt}
+                        width={1600}
+                        height={900}
+                        className="h-auto w-full"
+                      />
+                    ) : (
+                      <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-gradient-to-br from-cloud to-white p-8 text-center">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky/10 text-sky">
+                          <service.icon className="h-8 w-8" />
+                        </span>
+                        <p className="font-display text-lg font-semibold text-ink">
+                          Captura del servicio
+                        </p>
+                        <p className="max-w-md text-sm text-mist">
+                          [Placeholder] Aquí va la captura real del servicio. Pásamela
+                          y la enmarco en esta ventana.
+                        </p>
+                      </div>
+                    )}
                   </div>
-                )}
+                </MaybeTilt>
 
                 {service.mockup?.caption && (
-                  <figcaption className="border-t border-navy/10 px-4 py-3 text-center text-sm text-mist">
+                  <figcaption className="mt-6 max-w-md text-center text-sm text-mist">
                     {service.mockup.caption}
                   </figcaption>
                 )}

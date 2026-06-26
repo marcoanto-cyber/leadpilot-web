@@ -34,6 +34,8 @@ export type Service = {
     caption?: string;
     /** "phone" lo enmarca en un teléfono; "browser" (por defecto) en una ventana. */
     variant?: "phone" | "browser";
+    /** Si es true, el mockup de navegador hace un leve tilt 3D al pasar el cursor. */
+    tilt?: boolean;
   };
   /** (Opcional) imagen de escena cerca del cierre. */
   scene?: { src: string; alt: string; caption?: string };
@@ -93,21 +95,29 @@ export const services: Service[] = [
   },
   {
     slug: "ventas-crm",
-    name: "Ventas y CRM",
-    eyebrow: "Servicio",
+    name: "Deja de adivinar en qué va cada cliente. Ten todo tu negocio en una sola pantalla.",
+    eyebrow: "Ventas, pipeline y equipo",
     tagline:
-      "Pipelines, equipo comercial y notificaciones internas para que ninguna venta se enfríe.",
+      "Cada prospecto, cada conversación, cada cita —ordenados y a la vista. Lead Pilot organiza tus ventas para que sepas exactamente a quién seguir, qué falta y dónde está tu dinero.",
     summary:
-      "Ordena tu proceso comercial: cada prospecto en su etapa, cada seguimiento a tiempo, todo el equipo enterado.",
+      "Tu negocio ordenado y bajo control, sin que tengas que cargarlo todo en la cabeza.",
+    cta: "Quiero ordenar mis ventas",
     icon: GaugeIcon,
     problem:
-      "[Placeholder] Describe aquí el dolor concreto que resuelve este servicio para tu cliente.",
+      "Hoy tus clientes viven en tu cabeza, en notas sueltas y en chats que se pierden. Se te olvida a quién prometiste hablar. No sabes cuántas ventas tienes a punto de cerrar. Y si tienes ayudantes, nadie sabe quién atiende a quién.",
     includes: [
-      "[Placeholder] Punto 1 de lo que incluye",
-      "[Placeholder] Punto 2 de lo que incluye",
-      "[Placeholder] Punto 3 de lo que incluye",
-      "[Placeholder] Punto 4 de lo que incluye",
+      "Ve todas tus ventas de un vistazo. Un tablero donde cada cliente avanza de “interesado” a “cerrado”. Nada se pierde.",
+      "El seguimiento se hace solo. El sistema te recuerda —o le escribe por ti— a cada cliente que falta. Cero olvidos.",
+      "Si tienes equipo, todos coordinados. Cada lead se asigna solo a la persona correcta, con avisos automáticos.",
+      "Sabe cuánto vas a vender. De un vistazo ves qué tienes por cerrar este mes. Adiós a las sorpresas.",
     ],
+    mockup: {
+      src: "/Imagenes/servicio-ventasycrm-mockup.webp",
+      alt: "Tablero de pipeline de ventas de Lead Pilot con clientes avanzando por cada etapa.",
+      caption: "Todo tu pipeline de ventas en una sola pantalla, siempre actualizado.",
+      variant: "browser",
+      tilt: true,
+    },
   },
   {
     slug: "web-funnels",
