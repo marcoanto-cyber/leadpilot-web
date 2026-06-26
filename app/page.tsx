@@ -29,13 +29,15 @@ export default function Home() {
       />
       <main>
         <Hero />
-        <Problem />
-        <Benefits />
-        <HowItWorks />
-        <Services />
-        <Plans />
-        <Testimonials />
-        <FinalCTA />
+        {/* Todo lo que va debajo del hero se renderiza de forma diferida:
+            el navegador omite su paint hasta que el usuario se acerca. */}
+        <div className="cv-auto"><Problem /></div>
+        <div className="cv-auto"><Benefits /></div>
+        <div className="cv-auto"><HowItWorks /></div>
+        <div className="cv-auto"><Services /></div>
+        <div className="cv-auto"><Plans /></div>
+        <div className="cv-auto"><Testimonials /></div>
+        <div className="cv-auto"><FinalCTA /></div>
       </main>
     </>
   );

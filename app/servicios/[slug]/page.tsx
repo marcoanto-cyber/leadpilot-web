@@ -6,6 +6,7 @@ import { ServicePage } from "@/components/ServicePage";
 import { ServiceAutomationVisual } from "@/components/ServiceAutomationVisual";
 import { ServiceMarketingVisual } from "@/components/ServiceMarketingVisual";
 import { ServiceCRMVisual } from "@/components/ServiceCRMVisual";
+import { ServiceWebVisual } from "@/components/ServiceWebVisual";
 import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
 
 // Motion graphics propio por servicio (los demás usan el placeholder on-brand).
@@ -13,6 +14,7 @@ const visuals: Record<string, ReactNode> = {
   "automatizaciones-ia": <ServiceAutomationVisual />,
   marketing: <ServiceMarketingVisual />,
   "ventas-crm": <ServiceCRMVisual />,
+  "web-funnels": <ServiceWebVisual />,
 };
 
 // Animación interactiva dentro del mockup de teléfono (sección "Así se ve").

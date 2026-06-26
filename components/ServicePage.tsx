@@ -5,6 +5,7 @@ import type { Service } from "@/lib/services";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Reveal } from "@/components/motion/Reveal";
 import { TiltCard } from "@/components/motion/TiltCard";
+import { LazyMount } from "@/components/LazyMount";
 import { ServiceVisualPlaceholder } from "@/components/ServiceVisualPlaceholder";
 import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
@@ -109,7 +110,7 @@ export function ServicePage({
       </section>
 
       {/* 2 · El problema */}
-      <section className="bg-cloud py-20 sm:py-28">
+      <section className="cv-auto bg-cloud py-20 sm:py-28">
         <div className="container-px max-w-3xl">
           <Reveal>
             <span className="eyebrow !border-coral/30 !bg-coral/10 !text-coral-dark">
@@ -126,7 +127,7 @@ export function ServicePage({
       </section>
 
       {/* 3 · Qué hace por ti */}
-      <section className="bg-navy py-20 text-white sm:py-28">
+      <section className="cv-auto bg-navy py-20 text-white sm:py-28">
         <div className="container-px">
           <Reveal>
             <span className="eyebrow">
@@ -154,7 +155,7 @@ export function ServicePage({
       </section>
 
       {/* 4 · Prueba: mockup real enmarcado */}
-      <section className="bg-cloud py-20 sm:py-28">
+      <section className="cv-auto bg-cloud py-20 sm:py-28">
         <div className="container-px">
           <Reveal>
             <div className="text-center">
@@ -180,7 +181,9 @@ export function ServicePage({
                     <div className="absolute left-1/2 top-2.5 z-20 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1b2b]" />
                     <div className="relative h-full w-full overflow-hidden rounded-[1.9rem] bg-white">
                       {phoneDemo ? (
-                        phoneDemo
+                        <LazyMount className="h-full w-full" minHeight={0}>
+                          {phoneDemo}
+                        </LazyMount>
                       ) : (
                         <Image
                           src={service.mockup!.src!}
@@ -193,6 +196,41 @@ export function ServicePage({
                     </div>
                   </div>
                 </TiltCard>
+                {service.mockup?.caption && (
+                  <figcaption className="mt-6 max-w-md text-center text-sm text-mist">
+                    {service.mockup.caption}
+                  </figcaption>
+                )}
+              </figure>
+            </Reveal>
+          ) : service.mockup?.variant === "laptop" && service.mockup.src ? (
+            /* Mockup de laptop con sombra suave */
+            <Reveal delay={0.1}>
+              <figure className="mt-12 flex flex-col items-center">
+                <div className="w-full max-w-2xl">
+                  {/* Pantalla */}
+                  <div
+                    className="relative rounded-t-2xl border-[10px] border-b-0 border-[#0b1b2b] bg-[#0b1b2b]"
+                    style={{ boxShadow: "0 40px 90px -35px rgba(11,20,43,0.5)" }}
+                  >
+                    {/* Cámara */}
+                    <div className="absolute left-1/2 top-1.5 z-10 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white/25" />
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-lg bg-white">
+                      <Image
+                        src={service.mockup.src}
+                        alt={service.mockup.alt}
+                        fill
+                        sizes="(min-width: 768px) 672px, 100vw"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  </div>
+                  {/* Base / bisagra */}
+                  <div className="relative h-3 rounded-b-xl bg-[#0b1b2b]">
+                    <div className="absolute left-1/2 top-0 h-1.5 w-28 -translate-x-1/2 rounded-b-lg bg-white/10" />
+                  </div>
+                  <div className="mx-auto h-1.5 w-[58%] rounded-b-2xl bg-[#0b1b2b]/80 shadow-[0_18px_30px_-12px_rgba(11,20,43,0.5)]" />
+                </div>
                 {service.mockup?.caption && (
                   <figcaption className="mt-6 max-w-md text-center text-sm text-mist">
                     {service.mockup.caption}

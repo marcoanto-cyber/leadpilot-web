@@ -32,8 +32,8 @@ export type Service = {
     src?: string;
     alt: string;
     caption?: string;
-    /** "phone" lo enmarca en un teléfono; "browser" (por defecto) en una ventana. */
-    variant?: "phone" | "browser";
+    /** Marco del mockup: "phone", "laptop" o "browser" (por defecto, una ventana). */
+    variant?: "phone" | "laptop" | "browser";
     /** Si es true, el mockup de navegador hace un leve tilt 3D al pasar el cursor. */
     tilt?: boolean;
   };
@@ -121,21 +121,28 @@ export const services: Service[] = [
   },
   {
     slug: "web-funnels",
-    name: "Web y Funnels",
-    eyebrow: "Servicio",
+    name: "Una página que trabaja como tu mejor vendedor, abierta las 24 horas.",
+    eyebrow: "Páginas web y embudos de venta",
     tagline:
-      "Páginas y funnels diseñados para convertir visitantes en clientes.",
+      "No una página bonita que nadie usa. Una página hecha para una cosa: convertir al que llega en un cliente que te escribe o agenda. Y conectada a todo lo demás de tu sistema.",
     summary:
-      "Sitios rápidos y embudos de conversión medibles, conectados a tus automatizaciones.",
+      "Deja de mandar clientes a un perfil que no vende. Mándalos a una página que sí.",
+    cta: "Quiero una página que venda",
     icon: CompassIcon,
     problem:
-      "[Placeholder] Describe aquí el dolor concreto que resuelve este servicio para tu cliente.",
+      "Tienes redes, pero ¿a dónde mandas a la gente? Un perfil no cierra ventas. La gente entra, no sabe qué hacer y se va. Cada visitante perdido es un cliente que tuviste enfrente y dejaste ir.",
     includes: [
-      "[Placeholder] Punto 1 de lo que incluye",
-      "[Placeholder] Punto 2 de lo que incluye",
-      "[Placeholder] Punto 3 de lo que incluye",
-      "[Placeholder] Punto 4 de lo que incluye",
+      "Convierte visitantes en clientes. Cada página está diseñada para que el que llega te escriba, agende o compre. No solo para “verse bien”.",
+      "Lista en días, no en meses. Sin esperas eternas ni desarrolladores caros. Rápido y profesional.",
+      "Conectada a todo tu sistema. Lo que llega por la página entra solo a tu CRM y dispara el seguimiento automático.",
+      "Funciona en el celular. Donde de verdad te ve la gente. Carga rápido y se ve impecable.",
     ],
+    mockup: {
+      src: "/Imagenes/servicio-paginasweb-mockup.webp",
+      alt: "Página de aterrizaje de alta conversión creada por Lead Pilot, vista en una laptop.",
+      caption: "Una landing hecha para convertir, no solo para verse bonita.",
+      variant: "laptop",
+    },
   },
   {
     slug: "cursos-membresias",

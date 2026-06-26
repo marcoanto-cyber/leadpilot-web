@@ -62,6 +62,15 @@
   }
 }
 
+/* Renderizado diferido: el navegador omite el layout/paint de las secciones
+   que están fuera de pantalla hasta que el usuario se acerca a ellas. Aligera
+   mucho la carga inicial, sobre todo en móvil. `contain-intrinsic-size` reserva
+   una altura estimada para que la barra de scroll no salte. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 /* Degradado de "amanecer al horizonte" reutilizable */
 .sunrise-glow {
   background: radial-gradient(
